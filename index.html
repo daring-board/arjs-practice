@@ -23,6 +23,7 @@
 async function estimateHands() {
   const model = await handpose.load();
   const video = document.getElementById("arjs-video");
+  console.log(video)
   const estimatedHands = await model.estimateHands(video);
 
   if (estimateHands.length > 0) {
