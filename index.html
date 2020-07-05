@@ -37,10 +37,10 @@ video.addEventListener('loadeddata', (event) => {
 
 async function main(video){
   const model = await posenet.load({
-      architecture: 'MobileNetV1',
-      outputStride: 16,
-      inputResolution: { width: 640, height: 480 },
-      multiplier: 0.75
+    architecture: 'ResNet50',
+    outputStride: 32,
+    inputResolution: { width: 257, height: 200 },
+    quantBytes: 2
     });
   var sphere = document.getElementById('sphere');
   var cylinder = document.getElementById('cylinder');
@@ -50,17 +50,17 @@ async function main(video){
 
     const keypoints = predict.keypoints;
     console.log(keypoints)
-    const right_elbow = keypoints[10];
-    const left_elbow = keypoints[9];
-    if (right_elbow.score > 0.6) {
-      console.log(right_elbow.score);
+    const right_wrist = keypoints[10];
+    const left_wrist = keypoints[9];
+    if (right_wrist.score > 0.5) {
+      console.log(right_wrist.score);
       sphere.setAttribute('visible', false);
     } else {
       sphere.setAttribute('visible', true);
     }
 
-    if (left_elbow.score > 0.6) {
-      console.log(left_elbow.score);
+    if (left_wrist.score > 0.5) {
+      console.log(left_wrist.score);
       cylinder.setAttribute('visible', false);
     } else {
       cylinder.setAttribute('visible', true);
