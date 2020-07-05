@@ -60,6 +60,7 @@ async function estimateHands() {
   console.log(video)
   video.addEventListener('loadeddata', (event) => {
     console.log('test');
+    estimation(event);
   });
 }
 
