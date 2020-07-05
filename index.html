@@ -20,6 +20,26 @@
 <script>
 const _sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+async function estimation(event) {
+  console.log('start loop')
+    while(true) {
+      console.log('estimate!!');
+      const estimatedHands = await model.estimateHands(event.srcElement);
+
+      if (estimateHands.length > 0) {
+        for (let i = 0; i < predictions.length; i++) {
+          const keypoints = predictions[i].landmarks;
+
+          // Log hand keypoints.
+          for (let i = 0; i < keypoints.length; i++) {
+            const [x, y, z] = keypoints[i];
+            console.log(`Keypoint ${i}: [${x}, ${y}, ${z}]`);
+          }
+        }
+      }
+    }
+}
+
 async function estimateHands() {
   const model = await handpose.load();
   let video = document.getElementById("arjs-video");
@@ -38,25 +58,8 @@ async function estimateHands() {
     });
   video.srcObject = stream
   console.log(video)
-  video.addEventListener('loadeddata', async (event) => {
-    console.log('start loop')
-    while(true) {
-      console.log('estimate!!');
-      const estimatedHands = await model.estimateHands(event.srcElement);
-
-      if (estimateHands.length > 0) {
-        for (let i = 0; i < predictions.length; i++) {
-          const keypoints = predictions[i].landmarks;
-
-          // Log hand keypoints.
-          for (let i = 0; i < keypoints.length; i++) {
-            const [x, y, z] = keypoints[i];
-            console.log(`Keypoint ${i}: [${x}, ${y}, ${z}]`);
-          }
-        }
-      }
-    }
-
+  video.addEventListener('loadeddata', (event) => {
+    console.log('test');
   });
 }
 
