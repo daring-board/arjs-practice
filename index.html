@@ -6,10 +6,18 @@
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/handpose"></script> 
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@1.0.0"> </script> 
   <script src="https://unpkg.com/@tensorflow-models/posenet"></script>
+  <script>
+    AFRAME.registerComponent('posenet_event', {
+        init: () => {
+          this.markerVisible = true;
+          console.log(this);
+        }
+    });
+  </script>
 
   <body style="margin : 0px; overflow: hidden;">
     <a-scene embedded arjs>
-      <a-marker id="box" possenet_event>
+      <a-marker id="box" posenet_event>
         <a-box color="tomato" depth="2" height="4" width="0.5"></a-box>
       </a-marker>
       <a-entity camera></a-entity>
@@ -19,13 +27,6 @@
 
 <script>
 const _sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-AFRAME.registerComponent('possenet_event', {
-		init: () => {
-      this.markerVisible = true;
-      console.log(this);
-    }
-});
 
 async function estimation(event, model) {
   console.log('start loop')
