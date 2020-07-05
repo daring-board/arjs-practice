@@ -54,13 +54,13 @@ async function main(video){
     const keypoints = predict.keypoints;
     const right_elbow = keypoints[10];
     const left_elbow = keypoints[9];
-    if (right_wrist.score > 0.6) {
+    if (right_elbow.score > 0.6) {
       sphere.visible = false;
     } else {
       sphere.visible = true;
     }
 
-    if (left_wrist.score > 0.6) {
+    if (left_elbow.score > 0.6) {
       cylinder.visible = false;
     } else {
       cylinder.visible = true;
