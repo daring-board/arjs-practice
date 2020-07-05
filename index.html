@@ -39,21 +39,20 @@ async function estimateHands() {
   video.srcObject = stream
   console.log(video)
   video.addEventListener('loadeddata', (event) => {
-    console.log(event)
-  });
-  const estimatedHands = await model.estimateHands(video);
+    const estimatedHands = await model.estimateHands(event.srcElement);
 
-  if (estimateHands.length > 0) {
-    for (let i = 0; i < predictions.length; i++) {
-      const keypoints = predictions[i].landmarks;
+    if (estimateHands.length > 0) {
+      for (let i = 0; i < predictions.length; i++) {
+        const keypoints = predictions[i].landmarks;
 
-      // Log hand keypoints.
-      for (let i = 0; i < keypoints.length; i++) {
-        const [x, y, z] = keypoints[i];
-        console.log(`Keypoint ${i}: [${x}, ${y}, ${z}]`);
+        // Log hand keypoints.
+        for (let i = 0; i < keypoints.length; i++) {
+          const [x, y, z] = keypoints[i];
+          console.log(`Keypoint ${i}: [${x}, ${y}, ${z}]`);
+        }
       }
     }
-  }
+  });
 }
 
 console.log('start estimate')
