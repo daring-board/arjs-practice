@@ -67,10 +67,10 @@ async function estimateHands() {
     // const predict = await model.classify(event.srcElement);
 
     const model = await posenet.load();
-    const predict = await model.estimateSinglePose(event.srcElement, 0.5, true, 16);
+    // const predict = await model.estimateSinglePose(event.srcElement, 0.5, true, 16);
 
     console.log(predict);
-    // estimation(event, model);
+    estimation(event, model);
   });
 }
 
