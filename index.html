@@ -2,14 +2,13 @@
 <html>
   <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"> </script> 
-  <!-- <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/handpose"></script>  -->
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/posenet"></script> 
+\  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/posenet"></script> 
 
   <body style="margin : 0px; overflow: hidden;">
     <a-scene>
       <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
-      <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
-      <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
+      <a-sphere id="sphere" position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
+      <a-cylinder id="cylinder" position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
       <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
       <a-sky color="#ECECEC"></a-sky>
 
@@ -43,22 +42,29 @@ async function main(video){
       inputResolution: { width: 640, height: 480 },
       multiplier: 0.75
     });
+  var sphere = document.getElementById('sphere');
+  var cylinder = document.getElementById('cylinder');
   while(true) {
     console.log('estimate!!');
     const predict = await model.estimateSinglePose(video);
     console.log(predict)
 
-    // if (predict.length > 0) {
-    //   for (let i = 0; i < predict.length; i++) {
-    //     const keypoints = predict[i].landmarks;
 
-    //     // Log hand keypoints.
-    //     for (let i = 0; i < keypoints.length; i++) {
-    //       const [x, y, z] = keypoints[i];
-    //       console.log(`Keypoint ${i}: [${x}, ${y}, ${z}]`);
-    //     }
-    //   }
-    // }
+
+    const keypoints = predict.keypoints;
+    const right_wrist = keypoints[10];
+    const left_wrist = keypoints[9];
+    if (right_wrist.score > 0.7) {
+      sphere.visible = false;
+    } else {
+      sphere.visible = true;
+    }
+
+    if (left_wrist.score > 0.7) {
+      cylinder.visible = false;
+    } else {
+      cylinder.visible = true;
+    }
   }
 }
 </script>
