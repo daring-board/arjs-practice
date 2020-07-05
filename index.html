@@ -26,7 +26,10 @@ const _sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 var video = document.getElementById('myVideo');
 var localStream = null;
 if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-  navigator.mediaDevices.getUserMedia({ video: {facingMode: "user"} }).then(stream => {
+  const front = "user";
+  const rear = { exact: "environment" };
+  const mode = (navigator.userAgent.match(/iPhone|Android.+Mobile/))? rear: front;
+  navigator.mediaDevices.getUserMedia({ video: {facingMode: mode} }).then(stream => {
     video.srcObject = stream;
   })
 }
