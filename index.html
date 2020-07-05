@@ -18,6 +18,8 @@
 </html>
 
 <script>
+const _sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 async function estimateHands() {
   const model = await handpose.load();
   let video = document.getElementById("arjs-video");
@@ -25,7 +27,7 @@ async function estimateHands() {
   while (video == null && counter < 10) {
     video = document.getElementById("arjs-video");
     counter++;
-    sleep(1000);
+    await _sleep(1000);
   }
   const stream = await navigator.mediaDevices
     .getUserMedia({
