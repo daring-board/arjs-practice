@@ -38,6 +38,9 @@ async function estimateHands() {
     });
   video.srcObject = stream
   console.log(video)
+  video.addEventListener('loadeddata', (event) => {
+    console.log(event)
+  });
   const estimatedHands = await model.estimateHands(video);
 
   if (estimateHands.length > 0) {
