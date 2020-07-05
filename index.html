@@ -7,13 +7,11 @@
 
   <body style="margin : 0px; overflow: hidden;">
     <a-scene embedded arjs>
-      <a-marker preset="hiro">
-        <a-entity
-          position="0 0 0"
-          scale="0.05 0.05 0.05"
-          gltf-model="https://arjs-cors-proxy.herokuapp.com/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/scene.gltf"
-        ></a-entity>
-      </a-marker>
+      <a-entity
+        position="0 0 0"
+        scale="0.05 0.05 0.05"
+        gltf-model="https://arjs-cors-proxy.herokuapp.com/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/scene.gltf"
+      ></a-entity>
       <a-entity camera></a-entity>
     </a-scene>
   </body>
@@ -22,7 +20,7 @@
 <script>
 async function estimateHands() {
   const model = await handpose.load();
-  const video = document.getElementById("arjs-video");
+  const video = await document.getElementById("arjs-video");
   console.log(video)
   const estimatedHands = await model.estimateHands(video);
 
