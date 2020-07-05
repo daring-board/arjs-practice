@@ -11,11 +11,24 @@
       <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
       <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
       <a-sky color="#ECECEC"></a-sky>
+
+      <a-assets>
+        <video id="myVideo" width="400" height="300" autoplay="1" ></video>
+      </a-assets>
+      <a-video src="#myVideo" width="16" height="9" position="0 0 -20"></a-video>
     </a-scene>
   </body>
 </html>
 
 <script>
+var video = document.getElementById('myVideo');
+
+if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+  navigator.mediaDevices.getUserMedia({ video: {facingMode: "user"} }).then(stream => {
+      video.srcObject = stream
+  })
+}
+
 const _sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 async function estimation(event, model) {
