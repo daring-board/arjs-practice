@@ -27,7 +27,7 @@ async function estimation(event, model) {
     while(true) {
       console.log('estimate!!');
       // const predict = await model.estimateHands(event.srcElement);
-      const predict = estimateSinglePose(event.srcElement, 0.5, true, 16);
+      const predict = await model.estimateSinglePose(event.srcElement, 0.5, true, 16);
       console.log(predit)
 
       // if (predict.length > 0) {
