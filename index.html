@@ -26,19 +26,21 @@ async function estimation(event, model) {
   console.log('start loop')
     while(true) {
       console.log('estimate!!');
-      const predict = await model.estimateHands(event.srcElement);
+      // const predict = await model.estimateHands(event.srcElement);
+      const predict = estimateSinglePose(event.srcElement, 0.5, true, 16);
+      console.log(predit)
 
-      if (predict.length > 0) {
-        for (let i = 0; i < predict.length; i++) {
-          const keypoints = predict[i].landmarks;
+      // if (predict.length > 0) {
+      //   for (let i = 0; i < predict.length; i++) {
+      //     const keypoints = predict[i].landmarks;
 
-          // Log hand keypoints.
-          for (let i = 0; i < keypoints.length; i++) {
-            const [x, y, z] = keypoints[i];
-            console.log(`Keypoint ${i}: [${x}, ${y}, ${z}]`);
-          }
-        }
-      }
+      //     // Log hand keypoints.
+      //     for (let i = 0; i < keypoints.length; i++) {
+      //       const [x, y, z] = keypoints[i];
+      //       console.log(`Keypoint ${i}: [${x}, ${y}, ${z}]`);
+      //     }
+      //   }
+      // }
     }
 }
 
@@ -68,8 +70,8 @@ async function estimateHands() {
 
     const model = await posenet.load();
     // const predict = await model.estimateSinglePose(event.srcElement, 0.5, true, 16);
+    // console.log(predict);
 
-    console.log(predict);
     estimation(event, model);
   });
 }
