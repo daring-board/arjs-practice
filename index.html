@@ -3,43 +3,6 @@
   <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"> </script> 
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/handpose"></script> 
-  <script>
-    const _sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-    
-    var video = document.getElementById('myVideo');
-    var localStream = null;
-    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      navigator.mediaDevices.getUserMedia({ video: {facingMode: "user"} }).then(stream => {
-        video.srcObject = stream;
-      })
-    }
-    
-    video.addEventListener('loadeddata', (event) => {
-      main(event.srcElement)
-    })
-    
-    async function main(video){
-      const model = await handpose.load();
-      while(true) {
-        console.log('estimate!!');
-        const predict = await model.estimateHands(video);
-        console.log(predict)
-    
-        // if (predict.length > 0) {
-        //   for (let i = 0; i < predict.length; i++) {
-        //     const keypoints = predict[i].landmarks;
-    
-        //     // Log hand keypoints.
-        //     for (let i = 0; i < keypoints.length; i++) {
-        //       const [x, y, z] = keypoints[i];
-        //       console.log(`Keypoint ${i}: [${x}, ${y}, ${z}]`);
-        //     }
-        //   }
-        // }
-      }
-    }
-    </script>
-
 
   <body style="margin : 0px; overflow: hidden;">
     <a-scene>
@@ -50,9 +13,46 @@
       <a-sky color="#ECECEC"></a-sky>
 
       <a-assets>
-        <video id="myVideo" width="400" height="300" autoplay="1" ></video>
+        <video id="myVideo" width="400" height="300" autoplay="1" crossorigin="anonymous"></video>
       </a-assets>
       <a-video src="#myVideo" width="16" height="9" position="0 10 -20"></a-video>
     </a-scene>
   </body>
 </html>
+
+<script>
+const _sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+var video = document.getElementById('myVideo');
+var localStream = null;
+if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+  navigator.mediaDevices.getUserMedia({ video: {facingMode: "user"} }).then(stream => {
+    video.srcObject = stream;
+  })
+}
+
+video.addEventListener('loadeddata', (event) => {
+  main(event.srcElement)
+})
+
+async function main(video){
+  const model = await handpose.load();
+  while(true) {
+    console.log('estimate!!');
+    const predict = await model.estimateHands(video);
+    console.log(predict)
+
+    // if (predict.length > 0) {
+    //   for (let i = 0; i < predict.length; i++) {
+    //     const keypoints = predict[i].landmarks;
+
+    //     // Log hand keypoints.
+    //     for (let i = 0; i < keypoints.length; i++) {
+    //       const [x, y, z] = keypoints[i];
+    //       console.log(`Keypoint ${i}: [${x}, ${y}, ${z}]`);
+    //     }
+    //   }
+    // }
+  }
+}
+</script>
