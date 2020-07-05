@@ -1,17 +1,12 @@
 <!DOCTYPE html>
 <html>
   <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"> </script> 
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/handpose"></script> 
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@1.0.0"> </script> 
-  <script src="https://unpkg.com/@tensorflow-models/posenet"></script>
 
   <body style="margin : 0px; overflow: hidden;">
-    <a-scene embedded arjs>
-      <a-marker preset="hiro">
-        <a-box color="tomato" depth="2" height="4" width="0.5"></a-box>
-      </a-marker>
+    <a-scene>
+      <a-box color="tomato" depth="2" height="4" width="0.5"></a-box>
       <a-entity camera></a-entity>
     </a-scene>
   </body>
@@ -24,8 +19,8 @@ async function estimation(event, model) {
   console.log('start loop')
     while(true) {
       console.log('estimate!!');
-      // const predict = await model.estimateHands(event.srcElement);
-      const predict = await model.estimateSinglePose(event.srcElement, 0.5, true, 16);
+      const predict = await model.estimateHands(event.srcElement);
+      // const predict = await model.estimateSinglePose(event.srcElement, 0.5, true, 16);
       console.log(predict)
 
       // if (predict.length > 0) {
@@ -61,19 +56,11 @@ async function estimateHands() {
   console.log(video)
   video.addEventListener('loadeddata', async (event) => {
     console.log('test');
-    // const model = await handpose.load();
-    // const predict = await model.estimateHands(event.srcElement);
-    // const model = await mobilenet.load();
-    // const predict = await model.classify(event.srcElement);
-
-    const model = await posenet.load();
-    // const predict = await model.estimateSinglePose(event.srcElement, 0.5, true, 16);
-    // console.log(predict);
-
+    const model = await handpose.load();
     estimation(event, model);
   });
 }
 
 console.log('start estimate')
-estimateHands()
+// estimateHands()
 </script>
