@@ -37,23 +37,27 @@ navigator.getUserMedia({video: true, audio: false},
   console.log(err);
   }
 );
-const model = await handpose.load();
 
-while(true) {
-  console.log('estimate!!');
-  const predict = await model.estimateHands(video);
-  console.log(predict)
+async function main(){
+  const model = await handpose.load();
+  while(true) {
+    console.log('estimate!!');
+    const predict = await model.estimateHands(video);
+    console.log(predict)
 
-  // if (predict.length > 0) {
-  //   for (let i = 0; i < predict.length; i++) {
-  //     const keypoints = predict[i].landmarks;
+    // if (predict.length > 0) {
+    //   for (let i = 0; i < predict.length; i++) {
+    //     const keypoints = predict[i].landmarks;
 
-  //     // Log hand keypoints.
-  //     for (let i = 0; i < keypoints.length; i++) {
-  //       const [x, y, z] = keypoints[i];
-  //       console.log(`Keypoint ${i}: [${x}, ${y}, ${z}]`);
-  //     }
-  //   }
-  // }
+    //     // Log hand keypoints.
+    //     for (let i = 0; i < keypoints.length; i++) {
+    //       const [x, y, z] = keypoints[i];
+    //       console.log(`Keypoint ${i}: [${x}, ${y}, ${z}]`);
+    //     }
+    //   }
+    // }
+  }
 }
+
+main()
 </script>
