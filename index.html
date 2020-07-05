@@ -21,7 +21,10 @@
 const _sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 AFRAME.registerComponent('possenet_event', {
-		init: () => { this.markerVisible = true; }
+		init: () => {
+      this.markerVisible = true;
+      console.log(this);
+    }
 });
 
 async function estimation(event, model) {
