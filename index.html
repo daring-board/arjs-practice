@@ -54,16 +54,16 @@ async function main(video){
     const left_elbow = keypoints[9];
     if (right_elbow.score > 0.6) {
       console.log(right_elbow.score);
-      sphere.visible = false;
+      sphere.setAttribute('visible', false);
     } else {
-      sphere.visible = true;
+      sphere.setAttribute('visible', true);
     }
 
     if (left_elbow.score > 0.6) {
       console.log(left_elbow.score);
-      cylinder.visible = false;
+      cylinder.setAttribute('visible', false);
     } else {
-      cylinder.visible = true;
+      cylinder.setAttribute('visible', true);
     }
   }
 }
