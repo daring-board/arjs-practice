@@ -15,12 +15,14 @@
       <a-assets>
         <video id="myVideo" width="400" height="300" autoplay="1" ></video>
       </a-assets>
-      <a-video src="#myVideo" width="16" height="9" position="0 0 -20"></a-video>
+      <a-video src="#myVideo" width="16" height="9" position="0 -10 -20"></a-video>
     </a-scene>
   </body>
 </html>
 
 <script>
+const _sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 var video = document.getElementById('myVideo');
 
 if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -28,55 +30,23 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       video.srcObject = stream
   })
 }
+const model = await handpose.load();
 
-const _sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+while(true) {
+  console.log('estimate!!');
+  const predict = await model.estimateHands(video);
+  console.log(predict)
 
-async function estimation(event, model) {
-  console.log('start loop')
-    while(true) {
-      console.log('estimate!!');
-      const predict = await model.estimateHands(event.srcElement);
-      // const predict = await model.estimateSinglePose(event.srcElement, 0.5, true, 16);
-      console.log(predict)
+  // if (predict.length > 0) {
+  //   for (let i = 0; i < predict.length; i++) {
+  //     const keypoints = predict[i].landmarks;
 
-      // if (predict.length > 0) {
-      //   for (let i = 0; i < predict.length; i++) {
-      //     const keypoints = predict[i].landmarks;
-
-      //     // Log hand keypoints.
-      //     for (let i = 0; i < keypoints.length; i++) {
-      //       const [x, y, z] = keypoints[i];
-      //       console.log(`Keypoint ${i}: [${x}, ${y}, ${z}]`);
-      //     }
-      //   }
-      // }
-    }
+  //     // Log hand keypoints.
+  //     for (let i = 0; i < keypoints.length; i++) {
+  //       const [x, y, z] = keypoints[i];
+  //       console.log(`Keypoint ${i}: [${x}, ${y}, ${z}]`);
+  //     }
+  //   }
+  // }
 }
-
-async function estimateHands() {
-  let video = document.getElementById("arjs-video");
-  let counter = 0
-  while (video == null && counter < 10) {
-    video = document.getElementById("arjs-video");
-    counter++;
-    await _sleep(1000);
-  }
-  const stream = await navigator.mediaDevices
-    .getUserMedia({
-        audio: false,
-        video: {
-            facingMode: "environment"
-        }
-    });
-  video.srcObject = stream
-  console.log(video)
-  video.addEventListener('loadeddata', async (event) => {
-    console.log('test');
-    const model = await handpose.load();
-    estimation(event, model);
-  });
-}
-
-console.log('start estimate')
-// estimateHands()
 </script>
