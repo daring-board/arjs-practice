@@ -20,7 +20,7 @@
 <script>
 const _sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-async function estimation(event) {
+async function estimation(event, model) {
   console.log('start loop')
     while(true) {
       console.log('estimate!!');
@@ -60,7 +60,7 @@ async function estimateHands() {
   video.addEventListener('loadeddata', async (event) => {
     console.log('test');
     const model = await handpose.load();
-    estimation(event);
+    estimation(event, model);
   });
 }
 
