@@ -23,20 +23,13 @@
 <script>
 const _sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || window.navigator.mozGetUserMedia;
-window.URL = window.URL || window.webkitURL;
-
 var video = document.getElementById('myVideo');
 var localStream = null;
-navigator.getUserMedia({video: true, audio: false}, 
-  function(stream) { // for success case
-  console.log(stream);
-  video.src = window.URL.createObjectURL(stream);
-  },
-  function(err) { // for error case
-  console.log(err);
-  }
-);
+if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+  navigator.mediaDevices.getUserMedia({ video: {facingMode: "user"} }).then(stream => {
+    video.src = stream;
+  })
+}
 
 async function main(){
   const model = await handpose.load();
