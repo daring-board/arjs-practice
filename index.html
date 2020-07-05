@@ -41,7 +41,6 @@ async function estimation(event) {
 }
 
 async function estimateHands() {
-  const model = await handpose.load();
   let video = document.getElementById("arjs-video");
   let counter = 0
   while (video == null && counter < 10) {
@@ -58,8 +57,9 @@ async function estimateHands() {
     });
   video.srcObject = stream
   console.log(video)
-  video.addEventListener('loadeddata', (event) => {
+  video.addEventListener('loadeddata', async (event) => {
     console.log('test');
+    const model = await handpose.load();
     estimation(event);
   });
 }
