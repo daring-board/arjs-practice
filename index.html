@@ -2,7 +2,8 @@
 <html>
   <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"> </script> 
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/handpose"></script> 
+  <!-- <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/handpose"></script>  -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/posenet"></script> 
 
   <body style="margin : 0px; overflow: hidden;">
     <a-scene>
@@ -36,10 +37,15 @@ video.addEventListener('loadeddata', (event) => {
 })
 
 async function main(video){
-  const model = await handpose.load();
+  const model = await posenet.load({
+      architecture: 'MobileNetV1',
+      outputStride: 16,
+      inputResolution: { width: 640, height: 480 },
+      multiplier: 0.75
+    });
   while(true) {
     console.log('estimate!!');
-    const predict = await model.estimateHands(video);
+    const predict = await model.estimateSinglePose(video);
     console.log(predict)
 
     // if (predict.length > 0) {
