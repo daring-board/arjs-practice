@@ -60,7 +60,9 @@ async function estimateHands() {
   video.addEventListener('loadeddata', async (event) => {
     console.log('test');
     const model = await handpose.load();
-    estimation(event, model);
+    const estimatedHands = await model.estimateHands(event.srcElement);
+    console.log(estimateHands);
+    // estimation(event, model);
   });
 }
 
