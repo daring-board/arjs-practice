@@ -31,7 +31,11 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
   })
 }
 
-async function main(){
+video.addEventListener('loadeddata', (event) => {
+  main(event.srcElement)
+})
+
+async function main(video){
   const model = await handpose.load();
   while(true) {
     console.log('estimate!!');
@@ -51,6 +55,4 @@ async function main(){
     // }
   }
 }
-
-main()
 </script>
