@@ -47,20 +47,20 @@ async function main(video){
   while(true) {
     console.log('estimate!!');
     const predict = await model.estimateSinglePose(video);
-    console.log(predict)
-
-
 
     const keypoints = predict.keypoints;
+    console.log(keypoints)
     const right_elbow = keypoints[10];
     const left_elbow = keypoints[9];
     if (right_elbow.score > 0.6) {
+      console.log(right_elbow.score);
       sphere.visible = false;
     } else {
       sphere.visible = true;
     }
 
     if (left_elbow.score > 0.6) {
+      console.log(left_elbow.score);
       cylinder.visible = false;
     } else {
       cylinder.visible = true;
