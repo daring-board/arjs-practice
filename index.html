@@ -6,18 +6,12 @@
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/handpose"></script> 
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@1.0.0"> </script> 
   <script src="https://unpkg.com/@tensorflow-models/posenet"></script>
-  <script>
-    AFRAME.registerComponent('posenet_event', {
-        init: () => {
-          console.log(this.el);
-          this.el.object3D.visible = true;
-        }
-    });
-  </script>
 
   <body style="margin : 0px; overflow: hidden;">
     <a-scene embedded arjs>
-      <a-box posenet_event visible="true" color="tomato" depth="2" height="4" width="0.5"></a-box>
+      <a-marker preset="hiro">
+        <a-box color="tomato" depth="2" height="4" width="0.5"></a-box>
+      </a-marker>
       <a-entity camera></a-entity>
     </a-scene>
   </body>
