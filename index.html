@@ -25,6 +25,7 @@ async function estimateHands() {
   while (video == null && counter < 10) {
     video = document.getElementById("arjs-video");
     counter++;
+    sleep(1000);
   }
   const stream = await navigator.mediaDevices
     .getUserMedia({
