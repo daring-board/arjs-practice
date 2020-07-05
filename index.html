@@ -20,7 +20,15 @@
 <script>
 async function estimateHands() {
   const model = await handpose.load();
-  const video = await document.getElementById("arjs-video");
+  const video = document.getElementById("arjs-video");
+  const stream = await navigator.mediaDevices
+    .getUserMedia({
+        audio: false,
+        video: {
+            facingMode: "environment"
+        }
+    });
+video.srcObject = stream
   console.log(video)
   const estimatedHands = await model.estimateHands(video);
 
