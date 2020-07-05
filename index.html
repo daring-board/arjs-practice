@@ -9,8 +9,8 @@
   <script>
     AFRAME.registerComponent('posenet_event', {
         init: () => {
-          this.object3D.visible = true;
-          console.log(this.object3D);
+          console.log(this.el);
+          this.el.object3D.visible = true;
         }
     });
   </script>
