@@ -15,6 +15,12 @@ video.addEventListener('loadeddata', (event) => {
     main(event.srcElement)
 })
 
+var camera = document.getElementById('myCamera');
+camera.addEventListener('raycaster-intersection'), (event) => {
+    console.log(event);
+}
+
+
 AFRAME.registerComponent('change-color-on-hover', {
     schema: {
       color: {default: 'red'}
