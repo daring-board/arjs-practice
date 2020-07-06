@@ -55,22 +55,22 @@ async function main(video){
     var sphere = document.getElementById('sphere');
     var cylinder = document.getElementById('cylinder');
     while(true) {
-        console.log('estimate!!');
+        // console.log('estimate!!');
         const predict = await model.estimateSinglePose(video);
 
         const keypoints = predict.keypoints;
-        console.log(keypoints)
+        // console.log(keypoints)
         const right_wrist = keypoints[10];
         const left_wrist = keypoints[9];
         if (right_wrist.score > 0.5) {
-            console.log(right_wrist.score);
+            // console.log(right_wrist.score);
             sphere.setAttribute('visible', false);
         } else {
             sphere.setAttribute('visible', true);
         }
 
         if (left_wrist.score > 0.5) {
-            console.log(left_wrist.score);
+            // console.log(left_wrist.score);
             cylinder.setAttribute('visible', false);
         } else {
             cylinder.setAttribute('visible', true);
