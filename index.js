@@ -36,10 +36,12 @@ AFRAME.registerComponent('change-color-on-hover', {
 });
 
 async function main(video){
+    const w = 257;
+    const h = 200;
     const model = await posenet.load({
             architecture: 'ResNet50',
             outputStride: 32,
-            inputResolution: { width: 257, height: 200 },
+            inputResolution: { width: w, height: h },
             quantBytes: 2
         });
     var sphere = document.getElementById('sphere');
@@ -70,7 +72,7 @@ async function main(video){
         }
 
         if (nose.score > 0.8) {
-            noseObj.setAttribute('position', `${nose.position.x / 50} ${nose.position.y / 50} -2`);
+            noseObj.setAttribute('position', `${(nose.position.x - w) / 50} ${(nose.position.y - h) / 50} -2`);
             var pos = noseObj.getAttribute('position');
             console.log(pos);
         }
