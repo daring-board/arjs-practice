@@ -15,11 +15,15 @@ video.addEventListener('loadeddata', (event) => {
     main(event.srcElement)
 });
 
-var camera = document.getElementById('myCamera');
-camera.addEventListener('raycaster-intersection', (event) => {
-    console.log(event);
-});
-
+AFRAME.registerComponent('check-raycas', {
+    dependencies:['raycaster'],
+    init: function () {
+        var el = this.el;
+        el.addEventListener('raycaster-intersection', function () {
+            console.log(el)
+        });
+    }
+})
 
 AFRAME.registerComponent('change-color-on-hover', {
     schema: {
