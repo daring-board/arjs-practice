@@ -13,12 +13,12 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 
 video.addEventListener('loadeddata', (event) => {
     main(event.srcElement)
-})
+});
 
 var camera = document.getElementById('myCamera');
-camera.addEventListener('raycaster-intersection'), (event) => {
+camera.addEventListener('raycaster-intersection', (event) => {
     console.log(event);
-}
+});
 
 
 AFRAME.registerComponent('change-color-on-hover', {
