@@ -10,14 +10,14 @@
       <a-sphere id="sphere" position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
       <a-cylinder id="cylinder" position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
       <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
-      <a-sky color="#555555" radius="30" ></a-sky>
+      <a-sky class="collidable" color="#555555" radius="30" ></a-sky>
 
       <a-assets>
         <video id="myVideo" width="400" height="300" autoplay="1" crossorigin="anonymous"></video>
       </a-assets>
       <a-video src="#myVideo" width="16" height="9" position="0 10 -20"></a-video>
       <a-camera check-raycas>
-        <a-cursor laser-controls raycaster="far: 10"></a-cursor>
+        <a-cursor laser-controls raycaster="interbal: 1000; objects: .collidable; far: 40"></a-cursor>
       </a-camera>
     </a-scene>
   </body>
