@@ -19,8 +19,8 @@ AFRAME.registerComponent('check-raycas', {
     dependencies:['raycaster'],
     init: function () {
         var el = this.el;
-        el.addEventListener('raycaster-intersection', function () {
-            console.log(el)
+        el.addEventListener('raycaster-intersection', (event) => {
+            console.log(event.detail.intersections);
         });
     }
 })
