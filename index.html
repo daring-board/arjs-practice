@@ -16,8 +16,8 @@
         <video id="myVideo" width="400" height="300" autoplay="1" crossorigin="anonymous"></video>
       </a-assets>
       <a-video src="#myVideo" width="16" height="9" position="0 10 -20"></a-video>
-      <a-camera>
-        <a-cursor id="myCursor" laser-controls raycaster="objects: .links; far: 5"></a-cursor>
+      <a-camera id="myCamera" laser-controls raycaster="far: 10">
+        <a-cursor></a-cursor>
       </a-camera>
     </a-scene>
   </body>
