@@ -78,9 +78,13 @@ async function main(video){
             const ctr_y = rotate.y + 1.6;
             var x = - nose.position.x / w + ctr_x;
             var y = - nose.position.y / h + ctr_y;
+
+            noseObj.setAttribute('visble', true);
             noseObj.setAttribute('position', `${x} ${y} -2`);
             var pos = noseObj.getAttribute('position');
             console.log(pos);
+        } else {
+            noseObj.setAttribute('visble', false);
         }
     }
 }
