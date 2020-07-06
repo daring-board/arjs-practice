@@ -72,18 +72,10 @@ async function main(video){
         }
 
         if (nose.score > 0.8) {
-            var camera = document.getElementById('myCamera');
-            var rotate = camera.getAttribute('rotation');
-            var position = camera.getAttribute('position');
-            console.log(rotate);
-            console.log(position);
-            const term = 180;
-            const ctr_x = Math.sin(Math.PI * -rotate.y / term) * Math.cos(Math.PI * rotate.x / term);
-            const ctr_y = Math.sin(Math.PI * -rotate.y / term) * Math.sin(Math.PI * rotate.x / term);
-            // var x = 2 * (- nose.position.x / w + ctr_x);
-            // var y = 2 * (- nose.position.y / h + ctr_y);
-            var x = ctr_x;
-            var y = ctr_y + 1.6;
+            const ctr_x = 0;
+            const ctr_y = 1.6;
+            var x = 2 * (- nose.position.x / w + ctr_x);
+            var y = 2 * (- nose.position.y / h + ctr_y);
 
             noseObj.setAttribute('visible', true);
             noseObj.setAttribute('position', `${x} ${y} -2`);
