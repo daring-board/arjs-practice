@@ -15,9 +15,9 @@ video.addEventListener('loadeddata', (event) => {
     main(event.srcElement)
 });
 
-var camera = document.getElementById('myCamera');
-camera.addEventListener('raycaster-intersection', (event) => {
-    console.log(event);
+var cursor = document.getElementById('myCursor');
+corsor.addEventListener('raycaster-intersection', (event) => {
+    console.log(event.intersectedEls);
 });
 
 
