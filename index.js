@@ -74,8 +74,8 @@ async function main(video){
         if (nose.score > 0.8) {
             const ctr_x = 0;
             const ctr_y = 1.6;
-            var x = nose.position.x / w + ctr_x;
-            var y = nose.position.y / h + ctr_y;
+            var x = - nose.position.x / w + ctr_x;
+            var y = - nose.position.y / h + ctr_y;
             noseObj.setAttribute('position', `${x} ${y} -2`);
             var pos = noseObj.getAttribute('position');
             console.log(pos);
