@@ -70,7 +70,7 @@ async function main(video){
         }
 
         if (nose.score > 0.8) {
-            noseObj.setAttribute('position', `${nose.position.x} ${nose.position.y} -10`);
+            noseObj.setAttribute('position', `${nose.position.x / 50} ${nose.position.y / 50} -2`);
             var pos = noseObj.getAttribute('position');
             console.log(pos);
         }
