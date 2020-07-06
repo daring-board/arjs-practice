@@ -83,7 +83,7 @@ async function main(video){
             // var x = 2 * (- nose.position.x / w + ctr_x);
             // var y = 2 * (- nose.position.y / h + ctr_y);
             var x = ctr_x;
-            var y = ctr_y;
+            var y = ctr_y + 1.6;
 
             noseObj.setAttribute('visible', true);
             noseObj.setAttribute('position', `${x} ${y} -2`);
