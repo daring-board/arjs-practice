@@ -78,8 +78,8 @@ async function main(video){
             console.log(rotate);
             console.log(position);
             const term = 180;
-            const ctr_x = Math.sin(Math.PI * rotate.x / term) * Math.cos(Math.PI * rotate.y / term) + 0.8;
-            const ctr_y = Math.sin(Math.PI * rotate.x / term) * Math.sin(Math.PI * rotate.y / term) + 0.8;
+            const ctr_x = Math.sin(Math.PI * rotate.y / term) * Math.cos(Math.PI * rotate.x / term) + 0.8;
+            const ctr_y = Math.sin(Math.PI * rotate.y / term) * Math.sin(Math.PI * rotate.x / term) + 0.8;
             var x = 2 * (- nose.position.x / w + ctr_x);
             var y = 2 * (- nose.position.y / h + ctr_y);
 
