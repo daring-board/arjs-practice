@@ -44,7 +44,7 @@ async function main(video){
         });
     var sphere = document.getElementById('sphere');
     var cylinder = document.getElementById('cylinder');
-    var nose = document.getElementById('nose');
+    var noseObj = document.getElementById('nose');
     while(true) {
         // console.log('estimate!!');
         const predict = await model.estimateSinglePose(video);
@@ -70,8 +70,8 @@ async function main(video){
         }
 
         if (nose.score > 0.8) {
-            nose.setAttribute('position', `${nose.position.x} ${nose.position.y} -10`);
-            var pos = nose.getAttribute('position');
+            noseObj.setAttribute('position', `${nose.position.x} ${nose.position.y} -10`);
+            var pos = noseObj.getAttribute('position');
             console.log(pos);
         }
     }
