@@ -1,5 +1,16 @@
 const _sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+function check_thread () {
+    while ( true ) {
+        var camera = document.querySelector('a-camera');
+        var pos = camera.getAttribute('position');
+        var rot = camera.getAttribute('rotation');
+        console.log(pos);
+        console.log(rot);
+        _sleep(1000);
+    }
+}
+
 var video = document.getElementById('myVideo');
 var localStream = null;
 if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -27,18 +38,10 @@ AFRAME.registerComponent('change-color-on-hover', {
 
       el.addEventListener('mouseenter', function () {
         el.setAttribute('color', data.color);
-        var camera = document.querySelector('a-camera');
-        var pos = camera.getAttribute('position');
-        var rot = camera.getAttribute('rotation');
-        camera.setAttribute('position', '0 2 3');
-        console.log(pos);
-        console.log(rot);
       });
 
       el.addEventListener('mouseleave', function () {
         el.setAttribute('color', defaultColor);
-        var camera = document.querySelector('a-camera');
-        camera.setAttribute('position', '0 1.6 -1');
       });
     }
 });
@@ -75,3 +78,5 @@ async function main(video){
         }
     }
 }
+
+check_thread();
