@@ -77,8 +77,8 @@ async function main(video){
             console.log(rotate);
             const ctr_x = rotate.x + 1;
             const ctr_y = rotate.y + 1.6;
-            var x = - nose.position.x / w + ctr_x;
-            var y = - nose.position.y / h + ctr_y;
+            var x = 2 * (- nose.position.x / w + ctr_x);
+            var y = 2 * (- nose.position.y / h + ctr_y);
 
             noseObj.setAttribute('visible', true);
             noseObj.setAttribute('position', `${x} ${y} -2`);
