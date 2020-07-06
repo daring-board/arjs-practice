@@ -72,8 +72,8 @@ async function main(video){
         }
 
         if (nose.score > 0.8) {
-            var cursor = document.getElementById('myCursor');
-            var rotate = cursor.getAttribute('rotation');
+            var camera = document.getElementById('myCamera');
+            var rotate = camera.getAttribute('rotation');
             console.log(rotate);
             const ctr_x = rotate.x + 1;
             const ctr_y = rotate.y + 1.6;
