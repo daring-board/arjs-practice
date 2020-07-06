@@ -74,17 +74,18 @@ async function main(video){
         if (nose.score > 0.8) {
             var cursor = document.getElementById('myCursor');
             var rotate = cursor.getAttribute('rotation');
+            console.log(rotate);
             const ctr_x = rotate.x + 1;
             const ctr_y = rotate.y + 1.6;
             var x = - nose.position.x / w + ctr_x;
             var y = - nose.position.y / h + ctr_y;
 
-            noseObj.setAttribute('visble', true);
+            noseObj.setAttribute('visible', true);
             noseObj.setAttribute('position', `${x} ${y} -2`);
             var pos = noseObj.getAttribute('position');
             console.log(pos);
         } else {
-            noseObj.setAttribute('visble', false);
+            noseObj.setAttribute('visible', false);
         }
     }
 }
