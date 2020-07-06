@@ -43,6 +43,7 @@ AFRAME.registerComponent('change-color-on-hover', {
       el.addEventListener('mouseleave', function () {
         el.setAttribute('color', defaultColor);
       });
+      check_thread();
     }
 });
 
@@ -78,5 +79,3 @@ async function main(video){
         }
     }
 }
-
-check_thread();
