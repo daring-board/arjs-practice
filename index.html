@@ -6,6 +6,7 @@
 
   <body style="margin : 0px; overflow: hidden;">
     <a-scene>
+
       <a-box position="-1 0.5 -3" rotation="0 45 0" change-color-on-hover="color: blue"></a-box>
       <a-sphere id="sphere" position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
       <a-cylinder id="cylinder" position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
@@ -16,9 +17,11 @@
         <video id="myVideo" width="400" height="300" autoplay="1" crossorigin="anonymous"></video>
       </a-assets>
       <a-video src="#myVideo" width="16" height="9" position="0 10 -20"></a-video>
-      <a-camera check-raycas>
-        <a-cursor laser-controls raycaster="interbal: 1000; far: 40"></a-cursor>
+
+      <a-camera >
+        <a-cursor></a-cursor>
       </a-camera>
+
     </a-scene>
   </body>
 </html>

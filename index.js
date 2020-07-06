@@ -15,16 +15,6 @@ video.addEventListener('loadeddata', (event) => {
     main(event.srcElement)
 });
 
-AFRAME.registerComponent('check-raycas', {
-    dependencies:['raycaster'],
-    init: function () {
-        var el = this.el;
-        el.addEventListener('raycaster-intersection', (event) => {
-            console.log(event.detail.intersections);
-        });
-    }
-})
-
 AFRAME.registerComponent('change-color-on-hover', {
     schema: {
       color: {default: 'red'}
@@ -37,6 +27,11 @@ AFRAME.registerComponent('change-color-on-hover', {
 
       el.addEventListener('mouseenter', function () {
         el.setAttribute('color', data.color);
+        var cursor = document.querySelector('a-cursor');
+        var pos = cursor.getAttribute('position');
+        var rot = cursor.getAttribute('rotation');
+        console.log(pos);
+        console.log(rot);
       });
 
       el.addEventListener('mouseleave', function () {
