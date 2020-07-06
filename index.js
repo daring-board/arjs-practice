@@ -27,15 +27,17 @@ AFRAME.registerComponent('change-color-on-hover', {
 
       el.addEventListener('mouseenter', function () {
         el.setAttribute('color', data.color);
-        var cursor = document.querySelector('a-cursor');
+        var cursor = document.querySelector('a-camera');
         var pos = cursor.getAttribute('position');
         var rot = cursor.getAttribute('rotation');
+        cursor.setAttribute('position', '0 2 3');
         console.log(pos);
         console.log(rot);
       });
 
       el.addEventListener('mouseleave', function () {
         el.setAttribute('color', defaultColor);
+        cursor.setAttribute('position', '0 1.6 -1');
       });
     }
 });
