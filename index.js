@@ -1,16 +1,5 @@
 const _sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-function check_thread () {
-    while ( true ) {
-        var camera = document.querySelector('a-camera');
-        var pos = camera.getAttribute('position');
-        var rot = camera.getAttribute('rotation');
-        console.log(pos);
-        console.log(rot);
-        _sleep(1000);
-    }
-}
-
 var video = document.getElementById('myVideo');
 var localStream = null;
 if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -43,7 +32,6 @@ AFRAME.registerComponent('change-color-on-hover', {
       el.addEventListener('mouseleave', function () {
         el.setAttribute('color', defaultColor);
       });
-      check_thread();
     }
 });
 
@@ -56,6 +44,7 @@ async function main(video){
         });
     var sphere = document.getElementById('sphere');
     var cylinder = document.getElementById('cylinder');
+    var nose = document.getElementById('nose');
     while(true) {
         // console.log('estimate!!');
         const predict = await model.estimateSinglePose(video);
@@ -64,6 +53,8 @@ async function main(video){
         // console.log(keypoints)
         const right_wrist = keypoints[10];
         const left_wrist = keypoints[9];
+        const nose = keypoints[0];
+
         if (right_wrist.score > 0.5) {
             // console.log(right_wrist.score);
             sphere.setAttribute('visible', false);
@@ -76,6 +67,12 @@ async function main(video){
             cylinder.setAttribute('visible', false);
         } else {
             cylinder.setAttribute('visible', true);
+        }
+
+        if (nose.score > 0.8) {
+            nose.setAttribute('position', `${nose.position.x} ${nose.position.y} -10`);
+            var pos = nose.getAttribute('position');
+            console.log(pos);
         }
     }
 }
