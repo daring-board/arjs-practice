@@ -18,8 +18,15 @@
 
       <a-assets>
         <video id="myVideo" width="400" height="300" autoplay="1" crossorigin="anonymous"></video>
+        <a-asset-item id="charactor" src="./models/charactor/model.gltf"></a-asset-item>
+        <a-asset-item id="right_hand" src="./models/right_hand/model.gltf"></a-asset-item>
+        <a-asset-item id="left_hand" src="./models/left_hand/model.gltf"></a-asset-item>
       </a-assets>
       <a-video src="#myVideo" width="16" height="9" position="0 10 -20"></a-video>
+
+      <a-entity gltf-model="#charactor" position="0 2 -2"></a-entity>
+      <a-entity gltf-model="#right_hand" position="0.5 2 -2"></a-entity>
+      <a-entity gltf-model="#left_hand" position="-0.5 2 -2"></a-entity>
 
       <a-camera id="myCamera">
         <a-cursor id="myCursor"></a-cursor>

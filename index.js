@@ -38,24 +38,54 @@ AFRAME.registerComponent('change-color-on-hover', {
 async function main(video){
     const w = 257;
     const h = 200;
-    const model = await handpose.load();
+    const model = await posenet.load({
+            architecture: 'ResNet50',
+            outputStride: 32,
+            inputResolution: { width: w, height: h },
+            quantBytes: 2
+        });
     var sphere = document.getElementById('sphere');
     var cylinder = document.getElementById('cylinder');
     var noseObj = document.getElementById('nose');
     while(true) {
         // console.log('estimate!!');
-        const predicts = await model.estimateHands(video);
+        const predict = await model.estimateSinglePose(video);
 
-        if (predicts.length > 0) {
-            for (let i = 0; i < predicts.length; i++) {
-                const keypoints = predicts[i].landmarks;
-        
-                // Log hand keypoints.
-                for (let i = 0; i < keypoints.length; i++) {
-                const [x, y, z] = keypoints[i];
-                console.log(`Keypoint ${i}: [${x}, ${y}, ${z}]`);
-                }
-            }
+        const keypoints = predict.keypoints;
+        // console.log(keypoints)
+        const right_wrist = keypoints[10];
+        const left_wrist = keypoints[9];
+        const nose = keypoints[0];
+
+        if (right_wrist.score > 0.5) {
+            // console.log(right_wrist.score);
+            sphere.setAttribute('visible', false);
+        } else {
+            sphere.setAttribute('visible', true);
+        }
+
+        if (left_wrist.score > 0.5) {
+            // console.log(left_wrist.score);
+            cylinder.setAttribute('visible', false);
+        } else {
+            cylinder.setAttribute('visible', true);
+        }
+
+        if (nose.score > 0.8) {
+            var camera = document.getElementById('myCamera');
+            var rotate = camera.getAttribute('rotation');
+            console.log(rotate);
+            const ctr_x = 0.0;
+            const ctr_y = 1.6;
+            var x = 2 * (- nose.position.x / w + ctr_x);
+            var y = 2 * (- nose.position.y / h + ctr_y);
+
+            noseObj.setAttribute('visible', true);
+            noseObj.setAttribute('position', `${x} ${y} ${z}`);
+            var pos = noseObj.getAttribute('position');
+            console.log(pos);
+        } else {
+            noseObj.setAttribute('visible', false);
         }
     }
 }
