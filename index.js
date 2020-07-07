@@ -75,9 +75,9 @@ async function main(video){
             var camera = document.getElementById('myCamera');
             var rotate = camera.getAttribute('rotation');
             console.log(rotate);
-            const ctr_x = Math.sin(Math.PI * (rotate.y + Math.PI / 2) ) * Math.cos(Math.PI * rotate.x);
-            const ctr_y = Math.sin(Math.PI * rotate.y);
-            const ctr_z = Math.sin(Math.PI * (rotate.y + Math.PI / 2) ) * Math.sin(Math.PI * rotate.x);
+            const ctr_x = 2 * Math.sin(rotate.y + Math.PI / 2) * Math.cos(rotate.x);
+            const ctr_y = 2 * Math.sin(rotate.y);
+            const ctr_z = 2 * Math.sin(rotate.y + Math.PI / 2) * Math.sin(rotate.x);
             // var x = 2 * (- nose.position.x / w + ctr_x);
             // var y = 2 * (- nose.position.y / h + ctr_y);
             var x = ctr_x;
