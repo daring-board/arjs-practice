@@ -38,21 +38,16 @@ AFRAME.registerComponent('change-color-on-hover', {
 async function main(video){
     const w = 257;
     const h = 200;
-    const model = await posenet.load({
-            architecture: 'ResNet50',
-            outputStride: 32,
-            inputResolution: { width: w, height: h },
-            quantBytes: 2
-        });
+    const model = await handpose.load();
     var sphere = document.getElementById('sphere');
     var cylinder = document.getElementById('cylinder');
     var noseObj = document.getElementById('nose');
     while(true) {
         // console.log('estimate!!');
-        const predict = await model.estimateSinglePose(video);
+        const predict = await model.estimateHands(video);
 
         const keypoints = predict.keypoints;
-        // console.log(keypoints)
+        console.log(keypoints)
         const right_wrist = keypoints[10];
         const left_wrist = keypoints[9];
         const nose = keypoints[0];
