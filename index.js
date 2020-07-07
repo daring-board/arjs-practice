@@ -75,16 +75,17 @@ async function main(video){
             var camera = document.getElementById('myCamera');
             var rotate = camera.getAttribute('rotation');
             console.log(rotate);
-            const term = 180;
-            const ctr_x = Math.sin(Math.PI * rotate.x) * Math.cos(Math.PI * rotate.y);
-            const ctr_y = Math.sin(Math.PI * rotate.x);
+            const ctr_x = Math.sin(Math.PI * (rotate.y + Math.PI / 2) ) * Math.cos(Math.PI * rotate.x);
+            const ctr_y = Math.sin(Math.PI * rotate.y);
+            const ctr_z = Math.sin(Math.PI * (rotate.y + Math.PI / 2) ) * Math.sin(Math.PI * rotate.x);
             // var x = 2 * (- nose.position.x / w + ctr_x);
             // var y = 2 * (- nose.position.y / h + ctr_y);
             var x = ctr_x;
             var y = ctr_y + 1.6;
+            var z = ctr_z;
 
             noseObj.setAttribute('visible', true);
-            noseObj.setAttribute('position', `${x} ${y} -2`);
+            noseObj.setAttribute('position', `${x} ${y} ${z}`);
             var pos = noseObj.getAttribute('position');
             console.log(pos);
         } else {
