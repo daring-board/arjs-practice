@@ -46,8 +46,8 @@ async function main(video){
         // console.log('estimate!!');
         const predicts = await model.estimateHands(video);
 
-        for (let i = 0; i < predictions.length; i++) {
-            const keypoints = predictions[i].landmarks;
+        for (let i = 0; i < predicts.length; i++) {
+            const keypoints = predicts[i].landmarks;
        
             // Log hand keypoints.
             for (let i = 0; i < keypoints.length; i++) {
