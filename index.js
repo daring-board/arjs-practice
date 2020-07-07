@@ -81,7 +81,7 @@ async function main(video){
             var y = 2 * (- nose.position.y / h + ctr_y);
 
             noseObj.setAttribute('visible', true);
-            noseObj.setAttribute('position', `${x} ${y} ${z}`);
+            noseObj.setAttribute('position', `${x} ${y} -2`);
             var pos = noseObj.getAttribute('position');
             console.log(pos);
         } else {
