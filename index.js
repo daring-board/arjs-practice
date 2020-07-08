@@ -35,6 +35,48 @@ AFRAME.registerComponent('change-color-on-hover', {
     }
 });
 
+async function doPoseNet(video) {
+    // console.log('estimate!!');
+    const predict = await model.estimateSinglePose(video);
+
+    const keypoints = predict.keypoints;
+    // console.log(keypoints)
+    const right_wrist = keypoints[10];
+    const left_wrist = keypoints[9];
+    const nose = keypoints[0];
+
+    if (right_wrist.score > 0.5) {
+        // console.log(right_wrist.score);
+        sphere.setAttribute('visible', false);
+    } else {
+        sphere.setAttribute('visible', true);
+    }
+
+    if (left_wrist.score > 0.5) {
+        // console.log(left_wrist.score);
+        cylinder.setAttribute('visible', false);
+    } else {
+        cylinder.setAttribute('visible', true);
+    }
+
+    if (nose.score > 0.8) {
+        var camera = document.getElementById('myCamera');
+        var rotate = camera.getAttribute('rotation');
+        console.log(rotate);
+        const ctr_x = 0.0;
+        const ctr_y = 1.6;
+        var x = 2 * (- nose.position.x / w + ctr_x);
+        var y = 2 * (- nose.position.y / h + ctr_y);
+
+        noseObj.setAttribute('visible', true);
+        noseObj.setAttribute('position', `${x} ${y} -2`);
+        var pos = noseObj.getAttribute('position');
+        console.log(pos);
+    } else {
+        noseObj.setAttribute('visible', false);
+    }
+}
+
 async function main(video){
     const w = 257;
     const h = 200;
@@ -48,44 +90,12 @@ async function main(video){
     var cylinder = document.getElementById('cylinder');
     var noseObj = document.getElementById('nose');
     while(true) {
-        // console.log('estimate!!');
-        const predict = await model.estimateSinglePose(video);
+        doPoseNet(model, video, sphere, cylinder, noseObj);
+        var camera = document.getElementById('myCamera');
+        var arms = document.getElementById('myArms');
 
-        const keypoints = predict.keypoints;
-        // console.log(keypoints)
-        const right_wrist = keypoints[10];
-        const left_wrist = keypoints[9];
-        const nose = keypoints[0];
+        var rotate = camera.getAttribute('rotation');
+        arms.setAttribute('rotation', `${rotate.x} ${rotate.y - 90} ${rotate.z}`)
 
-        if (right_wrist.score > 0.5) {
-            // console.log(right_wrist.score);
-            sphere.setAttribute('visible', false);
-        } else {
-            sphere.setAttribute('visible', true);
-        }
-
-        if (left_wrist.score > 0.5) {
-            // console.log(left_wrist.score);
-            cylinder.setAttribute('visible', false);
-        } else {
-            cylinder.setAttribute('visible', true);
-        }
-
-        if (nose.score > 0.8) {
-            var camera = document.getElementById('myCamera');
-            var rotate = camera.getAttribute('rotation');
-            console.log(rotate);
-            const ctr_x = 0.0;
-            const ctr_y = 1.6;
-            var x = 2 * (- nose.position.x / w + ctr_x);
-            var y = 2 * (- nose.position.y / h + ctr_y);
-
-            noseObj.setAttribute('visible', true);
-            noseObj.setAttribute('position', `${x} ${y} -2`);
-            var pos = noseObj.getAttribute('position');
-            console.log(pos);
-        } else {
-            noseObj.setAttribute('visible', false);
-        }
     }
 }
