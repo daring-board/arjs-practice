@@ -73,8 +73,9 @@ async function main(video){
             console.log(rotate);
             const radius = 2;
             var position = { x: 0, y: 1.6, z: radius};
-            position.x = position.x * Math.cos(rotate.y) - position.z * Math.sin(rotate.y)
-            position.z = position.x * Math.sin(rotate.y) + position.z * Math.cos(rotate.y)
+            const radian = rotate.y / 180 * Math.PI;
+            position.x = position.x * Math.cos(radian) - position.z * Math.sin(radian)
+            position.z = position.x * Math.sin(radian) + position.z * Math.cos(radian)
 
             noseObj.setAttribute('position', `${position.x} ${position.y} ${position.z}`);
             noseObj.setAttribute('visible', true);
