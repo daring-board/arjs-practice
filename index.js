@@ -67,10 +67,24 @@ async function main(video){
             cylinder.setAttribute('visible', true);
         }
 
+        if (nose.score > 0.5) {
+            const camera = document.getElementById('myCamera');
+            const rotate = camera.getAttribute('rotation');
+            const radius = 2;
+            var position = { x: 0, y: 1.6, z: radius};
+            position.x = position.x * Math.cos(rotate.y) - position.z * Math.sin(rotate.y)
+            position.z = position.x * Math.sin(rotate.y) + position.z * Math.cos(rotate.y)
+
+            noseObj.setAttribute('position', `${x} ${y} ${z}`);
+            noseObj.setAttribute('visible', true);
+        } else {
+            noseObj.setAttribute('visible', false);
+        }
+
         var arms = document.getElementById('myArms');
         if (right_wrist.score > 0.5 && left_wrist.score > 0.5) {
-            var camera = document.getElementById('myCamera');
-            var rotate = camera.getAttribute('rotation');
+            const camera = document.getElementById('myCamera');
+            const rotate = camera.getAttribute('rotation');
             arms.setAttribute('rotation', `${rotate.x} ${rotate.y-90} ${rotate.z}`)
             arms.setAttribute('visible', true);
         } else {
