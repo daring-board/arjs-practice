@@ -71,10 +71,10 @@ async function main(video){
         if (right_wrist.score > 0.5 && left_wrist.score > 0.5) {
             var camera = document.getElementById('myCamera');
             var rotate = camera.getAttribute('rotation');
-            arms.setAttribute('rotation', `${rotate.x} ${rotate.y} ${rotate.z}`)
-            arms.setAttribute('visible', false);
-        } else {
+            arms.setAttribute('rotation', `${rotate.x} ${rotate.y-90} ${rotate.z}`)
             arms.setAttribute('visible', true);
+        } else {
+            arms.setAttribute('visible', false);
         }
     }
 }
