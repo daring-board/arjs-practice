@@ -71,10 +71,12 @@ async function main(video){
             const camera = document.getElementById('myCamera');
             const rotate = camera.getAttribute('rotation');
             const radius = 2;
-            var position = { x: 0, y: 1.6, z: -1};
+            var position = { x: 0, y: 1.6, z: 0};
             const radian = rotate.y / 180 * Math.PI;
-            position.x = - radius * Math.sin(radian)
-            position.z = - radius * Math.cos(radian)
+            var diff = noseObj.position.x * (Math.sin(radian) - Math.cos(radian));
+            position.x = - Math.sin(radian) + diff;
+            position.y += noseObj.position.y;
+            position.z = - Math.cos(radian) + diff;
             console.log(position);
 
             noseObj.setAttribute('position', `${position.x} ${position.y} ${position.z}`);
