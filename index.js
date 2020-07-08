@@ -74,7 +74,7 @@ async function main(video){
             var position = { x: 0, y: 1.6, z: 0};
             const radian = rotate.y / 180 * Math.PI;
             position.x = - Math.sin(radian) - ((nose.position.x + w/2)/w) * 2 * Math.cos(radian);
-            position.y -= ((nose.position.y  + h/2)/h);
+            position.y += ((nose.position.y  + h/2)/h);
             position.z = - Math.cos(radian) + ((nose.position.x + w/2)/w) * 2 * Math.sin(radian);
             console.log(position);
 
