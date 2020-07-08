@@ -90,7 +90,7 @@ async function main(video){
     var cylinder = document.getElementById('cylinder');
     var noseObj = document.getElementById('nose');
     while(true) {
-        doPoseNet(model, video, sphere, cylinder, noseObj);
+        await doPoseNet(model, video, sphere, cylinder, noseObj);
         var camera = document.getElementById('myCamera');
         var arms = document.getElementById('myArms');
 
