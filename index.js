@@ -73,8 +73,8 @@ async function main(video){
             const radius = 2;
             var position = { x: 0, y: 1.6, z: -1};
             const radian = rotate.y / 180 * Math.PI;
-            position.x = position.x * Math.cos(radian) + position.z * Math.sin(radian)
-            position.z = - position.x * Math.sin(radian) + position.z * Math.cos(radian)
+            position.x = Math.cos(radian) + Math.sin(radian)
+            position.z = - Math.sin(radian) + Math.cos(radian)
             console.log(position);
 
             noseObj.setAttribute('position', `${position.x} ${position.y} ${position.z}`);
