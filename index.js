@@ -67,10 +67,9 @@ async function main(video){
             cylinder.setAttribute('visible', true);
         }
 
-
+        var arms = document.getElementById('myArms');
         if (right_wrist.score > 0.5 && left_wrist.score > 0.5) {
             var camera = document.getElementById('myCamera');
-            var arms = document.getElementById('myArms');
             var rotate = camera.getAttribute('rotation');
             arms.setAttribute('rotation', `${rotate.x} ${rotate.y - 90} ${rotate.z}`)
             arms.setAttribute('visible', false);
