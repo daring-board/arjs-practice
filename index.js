@@ -78,7 +78,7 @@ async function main(video){
             position.z = - Math.cos(radian) + ((nose.position.x - w*3/4)/w) * 2 * Math.sin(radian);
             console.log(position);
 
-            noseObj.setAttribute('position', `${position.x} ${position.y} ${position.z}`);
+            noseObj.setAttribute('position', `${radius * position.x} ${position.y} ${radius * position.z}`);
             noseObj.setAttribute('visible', true);
         } else {
             noseObj.setAttribute('visible', false);
