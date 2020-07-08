@@ -70,12 +70,12 @@ async function main(video){
         if (nose.score > 0.5) {
             const camera = document.getElementById('myCamera');
             const rotate = camera.getAttribute('rotation');
-            console.log(rotate);
             const radius = 2;
             var position = { x: 0, y: 1.6, z: radius};
             const radian = rotate.y / 180 * Math.PI;
             position.x = position.x * Math.cos(radian) + position.z * Math.sin(radian)
             position.z = - position.x * Math.sin(radian) + position.z * Math.cos(radian)
+            console.log(position);
 
             noseObj.setAttribute('position', `${position.x} ${position.y} ${position.z}`);
             noseObj.setAttribute('visible', true);
