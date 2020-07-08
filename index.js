@@ -75,7 +75,7 @@ async function main(video){
             position.x = position.x * Math.cos(rotate.y) - position.z * Math.sin(rotate.y)
             position.z = position.x * Math.sin(rotate.y) + position.z * Math.cos(rotate.y)
 
-            noseObj.setAttribute('position', `${x} ${y} ${z}`);
+            noseObj.setAttribute('position', `${position.x} ${position.y} ${position.z}`);
             noseObj.setAttribute('visible', true);
         } else {
             noseObj.setAttribute('visible', false);
