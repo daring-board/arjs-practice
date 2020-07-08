@@ -70,6 +70,7 @@ async function main(video){
         if (nose.score > 0.5) {
             const camera = document.getElementById('myCamera');
             const rotate = camera.getAttribute('rotation');
+            console.log(rotate);
             const radius = 2;
             var position = { x: 0, y: 1.6, z: radius};
             position.x = position.x * Math.cos(rotate.y) - position.z * Math.sin(rotate.y)
