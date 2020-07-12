@@ -55,24 +55,39 @@ async function main(video){
         const left_wrist = keypoints[9];
         const nose = keypoints[0];
 
+        const camera = document.getElementById('myCamera');
+        const rotate = camera.getAttribute('rotation');
+        const radius = 2;
+        const radian = rotate.y / 180 * Math.PI;
+
         if (right_wrist.score > 0.5) {
+            var position = { x: 0, y: 0.5, z: 0};
+            position.x = - Math.sin(radian) - ((sphere.position.x - w*3/4)/w) * 2 * Math.cos(radian);
+            position.y += ((-sphere.position.y + h/2)/h);
+            position.z = - Math.cos(radian) + ((sphere.position.x - w*3/4)/w) * 2 * Math.sin(radian);
+            console.log(position);
+
+            sphere.setAttribute('position', `${radius * position.x} ${position.y} ${radius * position.z}`);
             sphere.setAttribute('visible', false);
         } else {
             sphere.setAttribute('visible', true);
         }
 
         if (left_wrist.score > 0.5) {
+            var position = { x: 0, y: 0.5, z: 0};
+            position.x = - Math.sin(radian) - ((cylinder.position.x - w*3/4)/w) * 2 * Math.cos(radian);
+            position.y += ((-cylinder.position.y + h/2)/h);
+            position.z = - Math.cos(radian) + ((cylinder.position.x - w*3/4)/w) * 2 * Math.sin(radian);
+            console.log(position);
+
+            cylinder.setAttribute('position', `${radius * position.x} ${position.y} ${radius * position.z}`);
             cylinder.setAttribute('visible', false);
         } else {
             cylinder.setAttribute('visible', true);
         }
 
         if (nose.score > 0.5) {
-            const camera = document.getElementById('myCamera');
-            const rotate = camera.getAttribute('rotation');
-            const radius = 2;
             var position = { x: 0, y: 1.6, z: 0};
-            const radian = rotate.y / 180 * Math.PI;
             position.x = - Math.sin(radian) - ((nose.position.x - w*3/4)/w) * 2 * Math.cos(radian);
             position.y += ((-nose.position.y + h/2)/h);
             position.z = - Math.cos(radian) + ((nose.position.x - w*3/4)/w) * 2 * Math.sin(radian);
@@ -84,14 +99,5 @@ async function main(video){
             noseObj.setAttribute('visible', false);
         }
 
-        var arms = document.getElementById('myArms');
-        if (right_wrist.score > 0.5 && left_wrist.score > 0.5) {
-            const camera = document.getElementById('myCamera');
-            const rotate = camera.getAttribute('rotation');
-            arms.setAttribute('rotation', `${rotate.x} ${rotate.y-90} ${rotate.z}`)
-            arms.setAttribute('visible', true);
-        } else {
-            arms.setAttribute('visible', false);
-        }
     }
 }
