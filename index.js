@@ -68,9 +68,9 @@ async function main(video){
             console.log(position);
 
             sphere.setAttribute('position', `${radius * position.x} ${position.y} ${radius * position.z}`);
-            sphere.setAttribute('visible', false);
-        } else {
             sphere.setAttribute('visible', true);
+        } else {
+            sphere.setAttribute('visible', false);
         }
 
         if (left_wrist.score > 0.5) {
@@ -81,9 +81,9 @@ async function main(video){
             console.log(position);
 
             cylinder.setAttribute('position', `${radius * position.x} ${position.y} ${radius * position.z}`);
-            cylinder.setAttribute('visible', false);
-        } else {
             cylinder.setAttribute('visible', true);
+        } else {
+            cylinder.setAttribute('visible', false);
         }
 
         if (nose.score > 0.5) {
