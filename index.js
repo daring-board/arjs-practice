@@ -62,9 +62,9 @@ async function main(video){
 
         if (right_wrist.score > 0.5) {
             var position = { x: 0, y: 0.5, z: 0};
-            position.x = - Math.sin(radian) - ((sphere.position.x - w*3/4)/w) * 2 * Math.cos(radian);
-            position.y += ((-sphere.position.y + h/2)/h);
-            position.z = - Math.cos(radian) + ((sphere.position.x - w*3/4)/w) * 2 * Math.sin(radian);
+            position.x = - Math.sin(radian) - ((right_wrist.position.x - w*3/4)/w) * 2 * Math.cos(radian);
+            position.y += ((-right_wrist.position.y + h/2)/h);
+            position.z = - Math.cos(radian) + ((right_wrist.position.x - w*3/4)/w) * 2 * Math.sin(radian);
             console.log(position);
 
             sphere.setAttribute('position', `${radius * position.x} ${position.y} ${radius * position.z}`);
@@ -75,9 +75,9 @@ async function main(video){
 
         if (left_wrist.score > 0.5) {
             var position = { x: 0, y: 0.5, z: 0};
-            position.x = - Math.sin(radian) - ((cylinder.position.x - w*3/4)/w) * 2 * Math.cos(radian);
-            position.y += ((-cylinder.position.y + h/2)/h);
-            position.z = - Math.cos(radian) + ((cylinder.position.x - w*3/4)/w) * 2 * Math.sin(radian);
+            position.x = - Math.sin(radian) - ((left_wrist.position.x - w*3/4)/w) * 2 * Math.cos(radian);
+            position.y += ((-left_wrist.position.y + h/2)/h);
+            position.z = - Math.cos(radian) + ((left_wrist.position.x - w*3/4)/w) * 2 * Math.sin(radian);
             console.log(position);
 
             cylinder.setAttribute('position', `${radius * position.x} ${position.y} ${radius * position.z}`);
