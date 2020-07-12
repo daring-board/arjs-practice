@@ -61,7 +61,7 @@ async function main(video){
         const radian = rotate.y / 180 * Math.PI;
 
         if (right_wrist.score > 0.5) {
-            var position = { x: 0, y: 0.5, z: 0};
+            var position = { x: 0, y: 1.2, z: 0};
             position.x = - Math.sin(radian) - ((right_wrist.position.x - w*3/4)/w) * 2 * Math.cos(radian);
             position.y += ((-right_wrist.position.y + h/2)/h);
             position.z = - Math.cos(radian) + ((right_wrist.position.x - w*3/4)/w) * 2 * Math.sin(radian);
@@ -74,7 +74,7 @@ async function main(video){
         }
 
         if (left_wrist.score > 0.5) {
-            var position = { x: 0, y: 0.5, z: 0};
+            var position = { x: 0, y: 1.2, z: 0};
             position.x = - Math.sin(radian) - ((left_wrist.position.x - w*3/4)/w) * 2 * Math.cos(radian);
             position.y += ((-left_wrist.position.y + h/2)/h);
             position.z = - Math.cos(radian) + ((left_wrist.position.x - w*3/4)/w) * 2 * Math.sin(radian);
