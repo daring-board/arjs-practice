@@ -43,28 +43,28 @@ async function main(video){
         scoreThreshold: 0.20,
     });
     var sphere = document.getElementById('sphere');
-    while(true) {
-        let hands = await model.estimateHands(video);
+    // while(true) {
+    //     let hands = await model.estimateHands(video);
 
-        const camera = document.getElementById('myCamera');
-        const rotate = camera.getAttribute('rotation');
-        const radius = 2;
-        const radian = rotate.y / 180 * Math.PI;
+    //     const camera = document.getElementById('myCamera');
+    //     const rotate = camera.getAttribute('rotation');
+    //     const radius = 2;
+    //     const radian = rotate.y / 180 * Math.PI;
 
-        if (hands.length > 0) {
-            const x = hands[0].landmarks[10][1]
-            const y = hands[0].landmarks[10][0]
-            var position = { x: 0, y: 1.6, z: 0};
-            position.x = - Math.sin(radian) - ((x - w*3/4)/w) * 2 * Math.cos(radian);
-            position.y += ((-y + h/2)/h);
-            position.z = - Math.cos(radian) + ((x - w*3/4)/w) * 2 * Math.sin(radian);
-            console.log(position);
+    //     if (hands.length > 0) {
+    //         const x = hands[0].landmarks[10][1]
+    //         const y = hands[0].landmarks[10][0]
+    //         var position = { x: 0, y: 1.6, z: 0};
+    //         position.x = - Math.sin(radian) - ((x - w*3/4)/w) * 2 * Math.cos(radian);
+    //         position.y += ((-y + h/2)/h);
+    //         position.z = - Math.cos(radian) + ((x - w*3/4)/w) * 2 * Math.sin(radian);
+    //         console.log(position);
 
-            sphere.setAttribute('position', `${radius * position.x} ${position.y} ${radius * position.z}`);
-            sphere.setAttribute('visible', true);
-        } else {
-            sphere.setAttribute('visible', false);
-        }
+    //         sphere.setAttribute('position', `${radius * position.x} ${position.y} ${radius * position.z}`);
+    //         sphere.setAttribute('visible', true);
+    //     } else {
+    //         sphere.setAttribute('visible', false);
+    //     }
 
-    }
+    // }
 }
