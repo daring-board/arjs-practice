@@ -11,8 +11,8 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     })
 }
 
-video.addEventListener('loadeddata', (event) => {
-    // main(event.srcElement)
+video.addEventListener('click', (event) => {
+    main(event.srcElement)
 });
 
 AFRAME.registerComponent('change-color-on-hover', {
