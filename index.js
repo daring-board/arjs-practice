@@ -38,65 +38,32 @@ AFRAME.registerComponent('change-color-on-hover', {
 async function main(video){
     const w = 257;
     const h = 200;
-    const model = await posenet.load({
-            architecture: 'ResNet50',
-            outputStride: 32,
-            inputResolution: { width: w, height: h },
-            quantBytes: 2
-        });
+    const model = await handpose.load({
+        detectionConfidence: 0.25,
+        scoreThreshold: 0.20,
+    });
     var sphere = document.getElementById('sphere');
-    var cylinder = document.getElementById('cylinder');
-    var noseObj = document.getElementById('nose');
     while(true) {
-        const predict = await model.estimateSinglePose(video);
-
-        const keypoints = predict.keypoints;
-        const right_wrist = keypoints[10];
-        const left_wrist = keypoints[9];
-        const nose = keypoints[0];
+        let hands = await model.estimateHands(video);
 
         const camera = document.getElementById('myCamera');
         const rotate = camera.getAttribute('rotation');
         const radius = 2;
         const radian = rotate.y / 180 * Math.PI;
 
-        if (right_wrist.score > 0.5) {
-            var position = { x: 0, y: 1.2, z: 0};
-            position.x = - Math.sin(radian) - ((right_wrist.position.x - w*3/4)/w) * 2 * Math.cos(radian);
-            position.y += ((-right_wrist.position.y + h/2)/h);
-            position.z = - Math.cos(radian) + ((right_wrist.position.x - w*3/4)/w) * 2 * Math.sin(radian);
+        if (hands.length > 0) {
+            const x = hands[0].landmarks[10][1]
+            const y = hands[0].landmarks[10][0]
+            var position = { x: 0, y: 1.6, z: 0};
+            position.x = - Math.sin(radian) - ((x - w*3/4)/w) * 2 * Math.cos(radian);
+            position.y += ((-y + h/2)/h);
+            position.z = - Math.cos(radian) + ((x - w*3/4)/w) * 2 * Math.sin(radian);
             console.log(position);
 
             sphere.setAttribute('position', `${radius * position.x} ${position.y} ${radius * position.z}`);
             sphere.setAttribute('visible', true);
         } else {
             sphere.setAttribute('visible', false);
-        }
-
-        if (left_wrist.score > 0.5) {
-            var position = { x: 0, y: 1.2, z: 0};
-            position.x = - Math.sin(radian) - ((left_wrist.position.x - w*3/4)/w) * 2 * Math.cos(radian);
-            position.y += ((-left_wrist.position.y + h/2)/h);
-            position.z = - Math.cos(radian) + ((left_wrist.position.x - w*3/4)/w) * 2 * Math.sin(radian);
-            console.log(position);
-
-            cylinder.setAttribute('position', `${radius * position.x} ${position.y} ${radius * position.z}`);
-            cylinder.setAttribute('visible', true);
-        } else {
-            cylinder.setAttribute('visible', false);
-        }
-
-        if (nose.score > 0.5) {
-            var position = { x: 0, y: 1.6, z: 0};
-            position.x = - Math.sin(radian) - ((nose.position.x - w*3/4)/w) * 2 * Math.cos(radian);
-            position.y += ((-nose.position.y + h/2)/h);
-            position.z = - Math.cos(radian) + ((nose.position.x - w*3/4)/w) * 2 * Math.sin(radian);
-            console.log(position);
-
-            noseObj.setAttribute('position', `${radius * position.x} ${position.y} ${radius * position.z}`);
-            noseObj.setAttribute('visible', true);
-        } else {
-            noseObj.setAttribute('visible', false);
         }
 
     }

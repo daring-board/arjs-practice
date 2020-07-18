@@ -2,7 +2,7 @@
 <html>
   <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"> </script> 
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/posenet"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/handpose"></script> 
 
   <body style="margin : 0px; overflow: hidden;">
     <a-scene>
@@ -13,14 +13,10 @@
       <a-plane position="0 0 0" rotation="-90 0 0" width="50" height="50" color="#7BC8A4"></a-plane>
       <a-sky color="#555555" radius="30" ></a-sky>
 
-      <a-sphere id="nose" position="0 1.25 -5" radius="0.3" color="#0000FF"></a-sphere>
-
       <a-assets>
         <video id="myVideo" width="400" height="300" autoplay="1" crossorigin="anonymous"></video>
       </a-assets>
       <a-video src="#myVideo" width="16" height="9" position="0 10 -20"></a-video>
-
-
       <a-camera id="myCamera">
         <a-cursor id="myCursor"></a-cursor>
       </a-camera>
