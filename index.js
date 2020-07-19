@@ -59,7 +59,7 @@ async function main(video){
             const y = hands[0].bbox[1] + hands[0].bbox[3] / 2
             var position = { x: 0, y: 1, z: 0};
             position.x = - Math.sin(radian) - ((x - w/2 + w/4)/w) * 2 * Math.cos(radian);
-            position.y += 2 * ((-y + h/2)/h);
+            position.y += 4 * ((-y + h/2)/h);
             position.z = - Math.cos(radian) + ((x - w/2 + w/4)/w) * 2 * Math.sin(radian);
             console.log(position);
 
