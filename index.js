@@ -34,7 +34,7 @@ AFRAME.registerComponent('change-color-on-hover', {
       });
 
       el.addEventListener('click', function() {
-        tf.setBackend('cpu').then(() => main(video));
+        main(video);
     });
     }
 });
