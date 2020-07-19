@@ -36,8 +36,8 @@ AFRAME.registerComponent('change-color-on-hover', {
 });
 
 async function main(video){
-    const w = 257;
-    const h = 200;
+    const w = 300;
+    const h = 400;
     const model = await handTrack.load({
         flipHorizontal: false,   // flip e.g for video 
         imageScaleFactor: 0.7,  // reduce input image size for gains in speed.
@@ -58,9 +58,9 @@ async function main(video){
             const x = hands[0].bbox[0] + hands[0].bbox[2] / 2
             const y = hands[0].bbox[1] + hands[0].bbox[3] / 2
             var position = { x: 0, y: 1.6, z: 0};
-            position.x = - Math.sin(radian) - ((x - w*3/4)/w) * 2 * Math.cos(radian);
+            position.x = - Math.sin(radian) - ((x - w/2)/w) * 2 * Math.cos(radian);
             position.y += ((-y + h/2)/h);
-            position.z = - Math.cos(radian) + ((x - w*3/4)/w) * 2 * Math.sin(radian);
+            position.z = - Math.cos(radian) + ((x - w/2)/w) * 2 * Math.sin(radian);
             console.log(position);
 
             sphere.setAttribute('position', `${radius * position.x} ${position.y} ${radius * position.z}`);
