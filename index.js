@@ -42,13 +42,10 @@ AFRAME.registerComponent('change-color-on-hover', {
 async function main(video){
     const w = 257;
     const h = 200;
-    const model = await handpose.load({
-        detectionConfidence: 0.25,
-        scoreThreshold: 0.20,
-    });
+    const model = await handTrack.load();
     var sphere = document.getElementById('sphere');
     while(true) {
-        let hands = await model.estimateHands(video);
+        let hands = await model.detect(video);
 
         const camera = document.getElementById('myCamera');
         const rotate = camera.getAttribute('rotation');
@@ -56,8 +53,8 @@ async function main(video){
         const radian = rotate.y / 180 * Math.PI;
 
         if (hands.length > 0) {
-            const x = hands[0].landmarks[10][1]
-            const y = hands[0].landmarks[10][0]
+            const x = hands[0].bbox[0] + hands[0].bbox[2] / 2
+            const y = hands[0].bbox[1] + hands[0].bbox[3] / 2
             var position = { x: 0, y: 1.6, z: 0};
             position.x = - Math.sin(radian) - ((x - w*3/4)/w) * 2 * Math.cos(radian);
             position.y += ((-y + h/2)/h);
