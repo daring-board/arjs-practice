@@ -11,9 +11,9 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     })
 }
 
-// video.addEventListener('loadeddata', (event) => {
-//     main(event.srcElement)
-// });
+video.addEventListener('loadeddata', (event) => {
+    main(event.srcElement)
+});
 
 AFRAME.registerComponent('change-color-on-hover', {
     schema: {
@@ -32,10 +32,6 @@ AFRAME.registerComponent('change-color-on-hover', {
       el.addEventListener('mouseleave', function () {
         el.setAttribute('color', defaultColor);
       });
-
-      el.addEventListener('click', function() {
-        main(video);
-    });
     }
 });
 
@@ -43,11 +39,11 @@ async function main(video){
     const w = 257;
     const h = 200;
     const model = await handTrack.load({
-        flipHorizontal: true,   // flip e.g for video 
+        flipHorizontal: false,   // flip e.g for video 
         imageScaleFactor: 0.7,  // reduce input image size for gains in speed.
         maxNumBoxes: 1,        // maximum number of boxes to detect
         iouThreshold: 0.75,      // ioU threshold for non-max suppression
-        scoreThreshold: 0.5,    // confidence threshold for predictions.
+        scoreThreshold: 0.75,    // confidence threshold for predictions.
     });
     var sphere = document.getElementById('sphere');
     while(true) {
