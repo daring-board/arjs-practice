@@ -42,7 +42,13 @@ AFRAME.registerComponent('change-color-on-hover', {
 async function main(video){
     const w = 257;
     const h = 200;
-    const model = await handTrack.load();
+    const model = await handTrack.load({
+        flipHorizontal: true,   // flip e.g for video 
+        imageScaleFactor: 0.7,  // reduce input image size for gains in speed.
+        maxNumBoxes: 1,        // maximum number of boxes to detect
+        iouThreshold: 0.75,      // ioU threshold for non-max suppression
+        scoreThreshold: 0.5,    // confidence threshold for predictions.
+    });
     var sphere = document.getElementById('sphere');
     while(true) {
         let hands = await model.detect(video);
