@@ -33,8 +33,8 @@ AFRAME.registerComponent('change-color-on-hover', {
         el.setAttribute('color', defaultColor);
       });
 
-      el.addEventListener('click', function(event) {
-        main(video)
+      el.addEventListener('click', function() {
+        tf.setBackend('wasm').then(() => main(video));
     });
     }
 });
