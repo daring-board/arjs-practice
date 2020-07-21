@@ -50,10 +50,10 @@ async function main(video){
         console.log(faces)
 
         if (faces.length > 0) {
-            const keypoints = faces.scaledMesh;
+            const keypoints = faces[0].scaledMesh;
             console.log(keypoints)
-            const x = keypoints[0]
-            const y = keypoints[1]
+            const x = keypoints[0][0]
+            const y = keypoints[0][1]
             var position = { x: 0, y: 1, z: 0};
             position.x = - Math.sin(radian) - ((x - w/2 - w/5)/w) * 2 * Math.cos(radian);
             position.y += 4 * ((-y + h/2)/h);
