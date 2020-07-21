@@ -35,7 +35,7 @@ AFRAME.registerComponent('change-color-on-hover', {
     }
 });
 
-AFRAME.registerGeometry('facemesh', {
+AFRAME.registerComponent('facemesh', {
   
     init: function () {
         this.geometry = new THREE.Geometry();
@@ -58,9 +58,9 @@ async function main(video){
             const keypoints = predictions[0].scaledMesh;
             face.update(keypoints);
             console.log(keypoints)
-            sphere.setAttribute('visible', true);
+            face.setAttribute('visible', true);
         } else {
-            sphere.setAttribute('visible', false);
+            face.setAttribute('visible', false);
         }
 
     }
