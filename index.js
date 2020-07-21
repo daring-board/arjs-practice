@@ -21,7 +21,7 @@ for(let i=0; i < 10; i++){
   
         init: function () {
             console.log(this.el)
-            this.el.setAttribute('position', {x: i, y: i, z: i});
+            this.el.setAttribute('position', {x: i-5, y: i, z: -5});
             this.el.setAttribute('radius', 0.5);
         }
 
