@@ -11,9 +11,9 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     })
 }
 
-// video.addEventListener('loadeddata', (event) => {
-//     main(event.srcElement)
-// });
+video.addEventListener('loadeddata', (event) => {
+    main(event.srcElement)
+});
 
 AFRAME.registerComponent('change-color-on-hover', {
     schema: {
@@ -32,8 +32,6 @@ AFRAME.registerComponent('change-color-on-hover', {
       el.addEventListener('mouseleave', function () {
         el.setAttribute('color', defaultColor);
       });
-
-      el.addEventListener('click', () => main())
     }
 });
 
