@@ -38,19 +38,19 @@ AFRAME.registerComponent('change-color-on-hover', {
 async function main(video){
     const w = 300;
     const h = 400;
-    const model = await facemesh.load();
+    const model = await handpose.load();;
     var sphere = document.getElementById('sphere');
     while(true) {
-        let faces = await model.estimateFaces(video);
+        let hands = await model.estimateHands(video);
 
         const camera = document.getElementById('myCamera');
         const rotate = camera.getAttribute('rotation');
         const radius = 2;
         const radian = rotate.y / 180 * Math.PI;
-        console.log(faces)
+        console.log(hands)
 
-        if (faces.length > 0) {
-            const keypoints = faces[0].scaledMesh;
+        if (hands.length > 0) {
+            const keypoints = hands[0].landmarks;
             console.log(keypoints)
             const x = keypoints[0][0]
             const y = keypoints[0][1]
