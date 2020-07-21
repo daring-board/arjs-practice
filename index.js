@@ -50,7 +50,7 @@ async function main(video){
         console.log(faces)
 
         if (faces.length > 0) {
-            const keypoints = prediction.scaledMesh;
+            const keypoints = faces.scaledMesh;
             const x = keypoints[0][0]
             const y = keypoints[0][1]
             var position = { x: 0, y: 1, z: 0};
