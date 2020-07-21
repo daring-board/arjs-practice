@@ -11,9 +11,9 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     })
 }
 
-video.addEventListener('loadeddata', (event) => {
-    main(event.srcElement)
-});
+// video.addEventListener('loadeddata', (event) => {
+//     main(event.srcElement)
+// });
 
 AFRAME.registerComponent('change-color-on-hover', {
     schema: {
@@ -32,10 +32,12 @@ AFRAME.registerComponent('change-color-on-hover', {
       el.addEventListener('mouseleave', function () {
         el.setAttribute('color', defaultColor);
       });
+
+      el.addEventListener('click', () => main())
     }
 });
 
-async function main(video){
+async function main(){
     const w = 300;
     const h = 400;
     const model = await handpose.load();;
