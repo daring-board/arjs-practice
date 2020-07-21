@@ -38,7 +38,8 @@ AFRAME.registerComponent('change-color-on-hover', {
 AFRAME.registerComponent('facemesh', {
   
     init: function () {
-        console.log(this.el)
+        console.log(this.el.geometry)
+        console.log(this.data)
     },
     update: function(vertices) {
         for(let i=0; i< vertices.length; i++){
