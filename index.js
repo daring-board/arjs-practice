@@ -11,6 +11,23 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     })
 }
 
+const scene = document.getElementsByTagName('a-scene');
+for(let i=0; i < 10; i++){
+    var asp = document.createElement('a-sphere')
+    asp.setAttribute('facemesh'+i);
+
+    scene.appendChild(asp);
+    AFRAME.registerComponent('facemesh'+i, {
+  
+        init: function () {
+            console.log(this.el)
+            this.el.setAttribute('position', {x: i, y: i, z: i});
+            this.el.setAttribute('radius', 0.5);
+        }
+
+    });
+}
+
 video.addEventListener('loadeddata', (event) => {
     main(event.srcElement)
 });
@@ -32,27 +49,6 @@ AFRAME.registerComponent('change-color-on-hover', {
       el.addEventListener('mouseleave', function () {
         el.setAttribute('color', defaultColor);
       });
-    }
-});
-
-AFRAME.registerComponent('facemesh', {
-  
-    init: function () {
-        console.log(this.el.geometry)
-        console.log(this.data)
-    },
-    update: function(vertices) {
-        for(let i=0; i< vertices.length; i++){
-            const [x, y, z] = vertices[i];
-            geometry.vertices.push(new THREE.Vector3( x,  y, z));
-        }
-    }
-});
-
-AFRAME.registerGeometry('facemesh', {
-  
-    init: function () {
-        this.geometry = new THREE.Geometry();
     }
 });
 
