@@ -38,13 +38,20 @@ AFRAME.registerComponent('change-color-on-hover', {
 AFRAME.registerComponent('facemesh', {
   
     init: function () {
-        this.geometry = new THREE.Geometry();
+        console.log(this.el)
     },
     update: function(vertices) {
         for(let i=0; i< vertices.length; i++){
             const [x, y, z] = vertices[i];
             geometry.vertices.push(new THREE.Vector3( x,  y, z));
         }
+    }
+});
+
+AFRAME.registerGeometry('facemesh', {
+  
+    init: function () {
+        this.geometry = new THREE.Geometry();
     }
 });
 
