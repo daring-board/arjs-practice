@@ -47,6 +47,7 @@ async function main(video){
         const rotate = camera.getAttribute('rotation');
         const radius = 2;
         const radian = rotate.y / 180 * Math.PI;
+        console.log(faces)
 
         if (faces.length > 0) {
             const keypoints = faces.scaledMesh;
