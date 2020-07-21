@@ -55,7 +55,7 @@ async function main(video){
         let predictions = await model.estimateFaces(video);
 
         if (predictions.length > 0) {
-            const keypoints = faces[0].scaledMesh;
+            const keypoints = predictions[0].scaledMesh;
             face.update(keypoints);
             console.log(keypoints)
             sphere.setAttribute('visible', true);
