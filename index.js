@@ -11,7 +11,7 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     })
 }
 
-const scene = document.getElementsByTagName('a-scene');
+var scene = document.querySelector('a-scene');
 for(let i=0; i < 10; i++){
     var asp = document.createElement('a-sphere')
     asp.setAttribute('facemesh'+i);
