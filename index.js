@@ -12,7 +12,7 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 }
 
 var scene = document.querySelector('a-scene');
-for(let i=0; i < 10; i++){
+for(let i=0; i < 468; i++){
     var asp = document.createElement('a-sphere')
     asp.setAttribute('facemesh'+i);
 
@@ -54,17 +54,24 @@ AFRAME.registerComponent('change-color-on-hover', {
 
 async function main(video){
     const model = await facemesh.load();
-    // var face = document.getElementById('face');
+    var faces = [];
+    for(let i=0; i < 468; i++){
+        faces.push(document.getElementById('facemesh'+i));
+    }
     while(true) {
         let predictions = await model.estimateFaces(video);
 
         if (predictions.length > 0) {
             const keypoints = predictions[0].scaledMesh;
-            // face.update(keypoints);
             console.log(keypoints)
-            // face.setAttribute('visible', true);
+            for(let i=0; i < 468; i++){
+                faces[i].setAttribute('visible', true);
+                faces[i].setAttribute('position', {x: i-5, y: i, z: -5});
+            }
         } else {
-            // face.setAttribute('visible', false);
+            for(let i=0; i < 468; i++){
+                faces[i].setAttribute('visible', false);
+            }
         }
 
     }
