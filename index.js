@@ -11,7 +11,7 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     })
 }
 
-const num_point = 469;
+const num_point = 468;
 var scene = document.querySelector('a-scene');
 for(let i=0; i < num_point; i++){
     var asp = document.createElement('a-sphere')
@@ -27,10 +27,6 @@ for(let i=0; i < num_point; i++){
 
     });
 }
-
-video.addEventListener('loadeddata', (event) => {
-    main(event.srcElement)
-});
 
 AFRAME.registerComponent('change-color-on-hover', {
     schema: {
@@ -52,6 +48,10 @@ AFRAME.registerComponent('change-color-on-hover', {
     }
 });
 
+video.addEventListener('loadeddata', (event) => {
+    main(event.srcElement)
+});
+
 async function main(video){
     const model = await facemesh.load();
     var faces = [];
@@ -65,14 +65,10 @@ async function main(video){
         if (predictions.length > 0) {
             const keypoints = predictions[0].scaledMesh;
             console.log(keypoints)
-            for(let i=0; i < num_point; i++){
-                faces[i].setAttribute('visible', true);
-                faces[i].setAttribute('position', {x: i-5, y: i, z: -5});
-            }
+            faces[10].setAttribute('visible', true);
+            faces[10].setAttribute('position', {x: i-5, y: i, z: -5});
         } else {
-            for(let i=0; i < num_point; i++){
-                faces[i].setAttribute('visible', false);
-            }
+            faces[10].setAttribute('visible', false);
         }
 
     }
