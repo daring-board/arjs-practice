@@ -55,7 +55,11 @@ video.addEventListener('loadeddata', () => {
 });
 
 async function main(){
-    const model = await handpose.load();
+    const model = await handpose.load({
+        detectionConfidence: 0.25,
+        scoreThreshold: 0.20,
+        iouThreshold: 0.8
+    });
     var hands = [];
     for(let i=0; i < num_point; i++){
         hands.push(document.getElementById('landmark'+i));
