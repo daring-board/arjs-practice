@@ -60,7 +60,7 @@ async function main(video){
 
         if (predictions.length > 0) {
             const keypoints = predictions[0].scaledMesh;
-            face.update(keypoints);
+            // face.update(keypoints);
             console.log(keypoints)
             // face.setAttribute('visible', true);
         } else {
