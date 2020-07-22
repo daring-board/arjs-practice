@@ -54,7 +54,7 @@ AFRAME.registerComponent('change-color-on-hover', {
 
 async function main(video){
     const model = await facemesh.load();
-    var face = document.getElementById('face');
+    // var face = document.getElementById('face');
     while(true) {
         let predictions = await model.estimateFaces(video);
 
@@ -62,9 +62,9 @@ async function main(video){
             const keypoints = predictions[0].scaledMesh;
             face.update(keypoints);
             console.log(keypoints)
-            face.setAttribute('visible', true);
+            // face.setAttribute('visible', true);
         } else {
-            face.setAttribute('visible', false);
+            // face.setAttribute('visible', false);
         }
 
     }
