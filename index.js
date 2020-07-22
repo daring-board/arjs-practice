@@ -11,15 +11,15 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     })
 }
 
-const num_point = 468;
+const num_point = 21;
 var scene = document.querySelector('a-scene');
 for(let i=0; i < num_point; i++){
     var asp = document.createElement('a-sphere')
-    asp.setAttribute('id', 'facemesh'+i);
-    asp.setAttribute('facemesh'+i, '');
+    asp.setAttribute('id', 'landmark'+i);
+    asp.setAttribute('landmark'+i, '');
 
     scene.appendChild(asp);
-    AFRAME.registerComponent('facemesh'+i, {
+    AFRAME.registerComponent('landmark'+i, {
   
         init: function () {
             this.el.setAttribute('position', {x: i-5, y: i, z: -5});
@@ -54,17 +54,17 @@ video.addEventListener('loadeddata', () => {
 });
 
 async function main(){
-    const model = await facemesh.load();
-    var faces = [];
+    const model = await handpose.load();
+    var hands = [];
     for(let i=0; i < num_point; i++){
-        faces.push(document.getElementById('facemesh'+i));
+        hands.push(document.getElementById('landmark'+i));
     }
     
     async function calc_mesh(){
-        let predictions = await model.estimateFaces(video);
+        let predictions = await model.estimateHands(video);
 
         if (predictions.length > 0) {
-            const keypoints = predictions[0].scaledMesh;
+            const keypoints = predictions[0].landmarks;
             console.log(keypoints)
             for(let i=0; i < num_point; i++){
                 faces[i].setAttribute('visible', true);
