@@ -58,7 +58,6 @@ async function main(video){
     var faces = [];
     for(let i=0; i < num_point; i++){
         faces.push(document.getElementById('facemesh'+i));
-        console.log(`${i}: ${faces[i]}`)
     }
     while(true) {
         let predictions = await model.estimateFaces(video);
@@ -66,10 +65,14 @@ async function main(video){
         if (predictions.length > 0) {
             const keypoints = predictions[0].scaledMesh;
             console.log(keypoints)
-            faces[10].setAttribute('visible', true);
-            faces[10].setAttribute('position', {x: 0, y: 1, z: -5});
+            for(let i=0; i < num_point; i++){
+                faces[i].setAttribute('visible', true);
+                faces[i].setAttribute('position', {x: keypoints[i].x / 200, y: keypoints[i].y / 250 + 1, z: keypoints[i].z / 50 + 5});
+            }
         } else {
-            faces[10].setAttribute('visible', false);
+            for(let i=0; i < num_point; i++){
+                faces[i].setAttribute('visible', false);
+            }
         }
 
     }
