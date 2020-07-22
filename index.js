@@ -68,7 +68,7 @@ async function main(){
             console.log(keypoints)
             for(let i=0; i < num_point; i++){
                 faces[i].setAttribute('visible', true);
-                faces[i].setAttribute('position', {x: keypoints[i][0] / 250, y: -keypoints[i][1] / 250+2, z: keypoints[i][2] / 50 - 5});
+                faces[i].setAttribute('position', {x: keypoints[i][0] / 400, y: -keypoints[i][1] / 300 + 1, z: -keypoints[i][2] / 50});
             }
         } else {
             for(let i=0; i < num_point; i++){
