@@ -11,8 +11,9 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     })
 }
 
+const num_point = 469;
 var scene = document.querySelector('a-scene');
-for(let i=0; i < 468; i++){
+for(let i=0; i < num_point; i++){
     var asp = document.createElement('a-sphere')
     asp.setAttribute('facemesh'+i);
 
@@ -20,7 +21,6 @@ for(let i=0; i < 468; i++){
     AFRAME.registerComponent('facemesh'+i, {
   
         init: function () {
-            console.log(this.el)
             this.el.setAttribute('position', {x: i-5, y: i, z: -5});
             this.el.setAttribute('radius', 0.05);
         }
@@ -55,7 +55,7 @@ AFRAME.registerComponent('change-color-on-hover', {
 async function main(video){
     const model = await facemesh.load();
     var faces = [];
-    for(let i=0; i < 468; i++){
+    for(let i=0; i < num_point; i++){
         faces.push(document.getElementById('facemesh'+i));
     }
     while(true) {
@@ -64,12 +64,12 @@ async function main(video){
         if (predictions.length > 0) {
             const keypoints = predictions[0].scaledMesh;
             console.log(keypoints)
-            for(let i=0; i < 468; i++){
+            for(let i=0; i < num_point; i++){
                 faces[i].setAttribute('visible', true);
                 faces[i].setAttribute('position', {x: i-5, y: i, z: -5});
             }
         } else {
-            for(let i=0; i < 468; i++){
+            for(let i=0; i < num_point; i++){
                 faces[i].setAttribute('visible', false);
             }
         }
