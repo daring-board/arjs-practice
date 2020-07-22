@@ -46,14 +46,14 @@ AFRAME.registerComponent('change-color-on-hover', {
       el.addEventListener('mouseleave', function () {
         el.setAttribute('color', defaultColor);
       });
+
+      el.addEventListener('click', (event) => {
+        tf.setBackend('wasm').then(() => main());
+    });
     }
 });
 
-video.addEventListener('loadeddata', (event) => {
-    tf.setBackend('wasm').then(() => main(event.srcElement));
-});
-
-async function main(video){
+async function main(){
     const model = await facemesh.load();
     var faces = [];
     for(let i=0; i < num_point; i++){
@@ -67,7 +67,7 @@ async function main(video){
             console.log(keypoints)
             for(let i=0; i < num_point; i++){
                 faces[i].setAttribute('visible', true);
-                faces[i].setAttribute('position', {x: keypoints[i][0] / 200, y: keypoints[i][1] / 250 + 1, z: keypoints[i][2] / 50 - 5});
+                faces[i].setAttribute('position', {x: keypoints[i][0] / 250, y: keypoints[i][1] / 250 + 1, z: keypoints[i][2] / 50 - 5});
             }
         } else {
             // for(let i=0; i < num_point; i++){
