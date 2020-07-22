@@ -59,7 +59,8 @@ async function main(){
     for(let i=0; i < num_point; i++){
         faces.push(document.getElementById('facemesh'+i));
     }
-    while(true) {
+    
+    async function calc_mesh(){
         let predictions = await model.estimateFaces(video);
 
         if (predictions.length > 0) {
@@ -74,6 +75,7 @@ async function main(){
             //     faces[i].setAttribute('visible', false);
             // }
         }
-        _sleep(100);
+        requestAnimationFrame(calc_mesh);
     }
+    calc_mesh();
 }
