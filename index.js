@@ -16,6 +16,7 @@ var scene = document.querySelector('a-scene');
 for(let i=0; i < num_point; i++){
     var asp = document.createElement('a-sphere')
     asp.setAttribute('id', 'facemesh'+i);
+    asp.setAttribute('facemesh'+i, '');
 
     scene.appendChild(asp);
     AFRAME.registerComponent('facemesh'+i, {
