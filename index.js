@@ -23,7 +23,7 @@ for(let i=0; i < num_point; i++){
   
         init: function () {
             this.el.setAttribute('position', {x: i-5, y: i, z: -5});
-            this.el.setAttribute('radius', 0.05);
+            this.el.setAttribute('radius', 0.01);
         }
 
     });
@@ -71,9 +71,9 @@ async function main(){
                 faces[i].setAttribute('position', {x: keypoints[i][0] / 250, y: keypoints[i][1] / 250 + 1, z: keypoints[i][2] / 50 - 5});
             }
         } else {
-            // for(let i=0; i < num_point; i++){
-            //     faces[i].setAttribute('visible', false);
-            // }
+            for(let i=0; i < num_point; i++){
+                faces[i].setAttribute('visible', false);
+            }
         }
         requestAnimationFrame(calc_mesh);
     }
