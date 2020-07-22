@@ -50,7 +50,8 @@ AFRAME.registerComponent('change-color-on-hover', {
 });
 
 video.addEventListener('loadeddata', () => {
-    tf.setBackend('wasm').then(() => main());
+    // tf.setBackend('wasm').then(() => main());
+    main();
 });
 
 async function main(){
