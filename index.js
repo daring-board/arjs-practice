@@ -66,7 +66,7 @@ async function main(video){
             const keypoints = predictions[0].scaledMesh;
             console.log(keypoints)
             faces[10].setAttribute('visible', true);
-            faces[10].setAttribute('position', {x: i-5, y: i, z: -5});
+            faces[10].setAttribute('position', {x: 0, y: 1, z: -5});
         } else {
             faces[10].setAttribute('visible', false);
         }
