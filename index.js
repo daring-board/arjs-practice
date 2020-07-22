@@ -70,9 +70,9 @@ async function main(video){
                 faces[i].setAttribute('position', {x: keypoints[i][0] / 200, y: keypoints[i][1] / 250 + 1, z: keypoints[i][2] / 50 + 5});
             }
         } else {
-            for(let i=0; i < num_point; i++){
-                faces[i].setAttribute('visible', false);
-            }
+            // for(let i=0; i < num_point; i++){
+            //     faces[i].setAttribute('visible', false);
+            // }
         }
 
     }
