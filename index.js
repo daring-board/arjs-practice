@@ -23,7 +23,8 @@ for(let i=0; i < num_point; i++){
   
         init: function () {
             this.el.setAttribute('position', {x: i-5, y: i, z: -5});
-            this.el.setAttribute('radius', 0.01);
+            this.el.setAttribute('radius', 0.05);
+            this.el.setAttribute('color', 'black');
         }
 
     });
@@ -56,8 +57,8 @@ video.addEventListener('loadeddata', () => {
 
 async function main(){
     const model = await handpose.load({
-        detectionConfidence: 0.25,
-        scoreThreshold: 0.20,
+        detectionConfidence: 0.5,
+        scoreThreshold: 0.5,
         iouThreshold: 0.8
     });
     var hands = [];
