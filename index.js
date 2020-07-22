@@ -47,7 +47,7 @@ AFRAME.registerComponent('change-color-on-hover', {
         el.setAttribute('color', defaultColor);
       });
 
-      el.addEventListener('click', (event) => {
+      el.addEventListener('click', () => {
         tf.setBackend('wasm').then(() => main());
     });
     }
@@ -74,6 +74,6 @@ async function main(){
             //     faces[i].setAttribute('visible', false);
             // }
         }
-
+        _sleep(100);
     }
 }
