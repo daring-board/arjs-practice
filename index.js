@@ -68,12 +68,12 @@ async function main(){
             const keypoints = predictions[0].landmarks;
             console.log(keypoints)
             for(let i=0; i < num_point; i++){
-                faces[i].setAttribute('visible', true);
-                faces[i].setAttribute('position', {x: keypoints[i][0] / 400 - 0.5, y: -keypoints[i][1] / 300 + 2.0, z: keypoints[i][2] / 50 - 3});
+                hands[i].setAttribute('visible', true);
+                hands[i].setAttribute('position', {x: keypoints[i][0] / 400 - 0.5, y: -keypoints[i][1] / 300 + 2.0, z: keypoints[i][2] / 50 - 3});
             }
         } else {
             for(let i=0; i < num_point; i++){
-                faces[i].setAttribute('visible', false);
+                hands[i].setAttribute('visible', false);
             }
         }
         requestAnimationFrame(calc_mesh);
