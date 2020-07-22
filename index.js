@@ -57,6 +57,7 @@ async function main(video){
     var faces = [];
     for(let i=0; i < num_point; i++){
         faces.push(document.getElementById('facemesh'+i));
+        console.log(`${i}: ${faces[i]}`)
     }
     while(true) {
         let predictions = await model.estimateFaces(video);
