@@ -1,6 +1,13 @@
-const ws = new WebSocket('ws://localhost:8080');
-
 const _sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+var config = {
+    apiKey: "AIzaSyBgC_40tfmwnLtw2r3_dBC6Hl18lp-6EdA",
+    authDomain: "rigel-b11c1.firebaseapp.com",
+    databaseURL: "https://rigel-b11c1.firebaseio.com",
+    storageBucket: "rigel-b11c1.appspot.com"
+};
+firebase.initializeApp(config);
+var database = firebase.database();
 
 var video = document.getElementById('myVideo');
 var localStream = null;
@@ -13,39 +20,35 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     })
 }
 
-const n_hp = 21;
-var scene = document.querySelector('a-scene');
-for(let i=0; i < n_hp; i++){
-    var asp = document.createElement('a-sphere')
-    asp.setAttribute('id', 'landmark'+i);
-    asp.setAttribute('landmark'+i, '');
+let sky = document.getElementById('sky');
+firebase.database().ref('/space/sky/').on('value', function(snapshot) {
+    const attr = snapshot.val();
+    sky.setAttribute('color', attr.color);
+    sky.setAttribute('radius', attr.radius);
+});
 
-    scene.appendChild(asp);
-    AFRAME.registerComponent('landmark'+i, {
-        init: function () {
-            this.el.setAttribute('position', {x: i-5, y: i, z: -5});
-            this.el.setAttribute('radius', 0.05);
-            this.el.setAttribute('color', 'black');
-        }
-    });
-}
+let box = document.getElementById('box');
+firebase.database().ref('/space/box/').on('value', function(snapshot) {
+    const attr = snapshot.val();
+    box.setAttribute('position', attr.position);
+    box.setAttribute('rotation', attr.rotation);
+});
 
-const n_fm = 468;
-var scene = document.querySelector('a-scene');
-for(let i=0; i < n_fm; i++){
-    var asp = document.createElement('a-sphere')
-    asp.setAttribute('id', 'mesh'+i);
-    asp.setAttribute('mesh'+i, '');
+let sphere = document.getElementById('sphere');
+firebase.database().ref('/space/sphere/').on('value', function(snapshot) {
+    const attr = snapshot.val();
+    sphere.setAttribute('color', attr.color);
+    sphere.setAttribute('radius', attr.radius);
+    sphere.setAttribute('position', attr.position);
+});
 
-    scene.appendChild(asp);
-    AFRAME.registerComponent('mesh'+i, {
-        init: function () {
-            this.el.setAttribute('position', {x: i-5, y: i, z: -5});
-            this.el.setAttribute('radius', 0.01);
-            this.el.setAttribute('color', 'blue');
-        }
-    });
-}
+let cylinder = document.getElementById('cylinder');
+firebase.database().ref('/space/cylinder/').on('value', function(snapshot) {
+    const attr = snapshot.val();
+    cylinder.setAttribute('color', attr.color);
+    cylinder.setAttribute('radius', attr.radius);
+    cylinder.setAttribute('position', attr.position);
+});
 
 AFRAME.registerComponent('change-color-on-hover', {
     schema: {
@@ -55,7 +58,8 @@ AFRAME.registerComponent('change-color-on-hover', {
     init: function () {
       var data = this.data;
       var el = this.el;  // <a-box>
-      var defaultColor = el.getAttribute('material').color;
+      var defaultColor = 'red';
+      el.setAttribute('color', defaultColor);
 
       el.addEventListener('mouseenter', function () {
         el.setAttribute('color', data.color);
@@ -64,74 +68,82 @@ AFRAME.registerComponent('change-color-on-hover', {
       el.addEventListener('mouseleave', function () {
         el.setAttribute('color', defaultColor);
       });
-
-      el.addEventListener('click', function () {
-        ws.send("Here's some text that the server is urgently awaiting!"); 
-      });
     }
 });
 
 video.addEventListener('loadeddata', () => {
-    // exec_handpose();
     tf.setBackend('wasm').then(() => exec_facemesh());
-    // exec_facemesh();
 });
 
-async function exec_handpose(){
-    const model = await handpose.load({
-        detectionConfidence: 0.5,
-        scoreThreshold: 0.5,
-        iouThreshold: 0.8
-    });
-    var hands = [];
-    for(let i=0; i < n_hp; i++){
-        hands.push(document.getElementById('landmark'+i));
-    }
-    
-    async function calc_landmark(){
-        let predictions = await model.estimateHands(video);
-
-        if (predictions.length > 0) {
-            const keypoints = predictions[0].landmarks;
-            // console.log(keypoints)
-            for(let i=0; i < n_hp; i++){
-                hands[i].setAttribute('visible', true);
-                hands[i].setAttribute('position', {x: keypoints[i][0] / 400 - 0.5, y: -keypoints[i][1] / 300 + 2.0, z: keypoints[i][2] / 50 - 3});
-            }
-        } else {
-            for(let i=0; i < n_hp; i++){
-                hands[i].setAttribute('visible', false);
-            }
-        }
-        requestAnimationFrame(calc_landmark);
-    }
-    calc_landmark();
-}
-
+const n_fm = 468;
+let model = null;
+var meshs = [];
+let myFMesh = ''
 async function exec_facemesh(){
-    const model = await facemesh.load();
-    var meshs = [];
-    for(let i=0; i < n_fm; i++){
-        meshs.push(document.getElementById('mesh'+i));
-    }
-    
-    async function calc_mesh(){
-        let predictions = await model.estimateFaces(video);
+    model = await facemesh.load();
+    myFMesh = firebase.database().ref('/space/facemeshs').push({
+        facemesh: [0]
+    }).key;
+    calc_mesh()
+}
 
-        if (predictions.length > 0) {
-            const keypoints = predictions[0].scaledMesh;
-            // console.log(keypoints)
-            ws.send(keypoints.length); 
-            for(let i=0; i < n_fm; i++){
-                meshs[i].setAttribute('visible', true);
-                meshs[i].setAttribute('position', {x: keypoints[i][0] / 400 - 0.5, y: -keypoints[i][1] / 300 + 2.0, z: keypoints[i][2] / 50 - 3});
-            }
+window.addEventListener('onunload', () => {
+    firebase.database().ref(`/space/facemeshs/${myFMesh}`).remove();
+});
+
+async function calc_mesh(){
+    let predictions = await model.estimateFaces(video);
+    if (predictions.length > 0) {
+        const keypoints = predictions[0].scaledMesh;
+        firebase.database().ref(`/space/facemeshs/${myFMesh}`).update({
+            facemesh: keypoints
+        });
+    }
+}
+
+function addMeshs(num) {
+    var scene = document.querySelector('a-scene');
+    for(let i=0; i < num; i++){
+        for(let j=0; j < n_fm; j++){
+            var fm_id = j + i*n_fm;
+            var asp = document.createElement('a-sphere')
+            asp.setAttribute('id', 'mesh'+fm_id);
+            asp.setAttribute('mesh'+fm_id, '');
+        
+            scene.appendChild(asp);
+            AFRAME.registerComponent('mesh'+fm_id, {
+                init: function () {
+                    this.el.setAttribute('position', {x: 0, y: 0, z: 0});
+                    this.el.setAttribute('radius', 0.01);
+                    this.el.setAttribute('color', 'blue');
+                    this.el.setAttribute('visible', false);
+                }
+            });
+            meshs.push(document.getElementById('mesh'+fm_id));
         }
-        requestAnimationFrame(calc_mesh);
     }
-    calc_mesh();
 }
 
-ws.onmessage = function (event) {
-    console.log(event.data);
-}
+firebase.database().ref('/space/facemeshs').on('value', function(snapshot) {
+    const fmeshs = snapshot.val();
+    if (fmeshs === null) return;
+
+    const keys = Object.keys(fmeshs);
+    if (keys.length == 0) return;
+
+    if (keys.length > meshs.length){
+        addMeshs(keys.length - meshs.length);
+    }
+
+    for(let i=0; i < keys.length; i++){
+        if (fmeshs[keys[i]]['facemesh'].length != n_fm) continue;
+        const keypoints = fmeshs[keys[i]]['facemesh'];
+        for(let j=0; j < n_fm; j++){
+            if (meshs[j + i * n_fm] === undefined) break;
+            meshs[j + i * n_fm].setAttribute('visible', true);
+            meshs[j + i * n_fm].setAttribute('position', {x: keypoints[j][0] / 400 - 0.5, y: -keypoints[j][1] / 300 + 2.0, z: keypoints[j][2] / 50 - 3});
+        }
+    }
+    if(model == null) return;
+    requestAnimationFrame(calc_mesh);
+});

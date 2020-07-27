@@ -4,22 +4,24 @@
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.1"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm@2.0.1/dist/tf-backend-wasm.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/facemesh@0.0.3"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/handpose@0.0.5"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-auth.js"></script>  
+  <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-database.js"></script>
 
   <body style="margin : 0px; overflow: hidden;">
     <a-scene>
 
-      <a-box position="-1 0.5 -3" rotation="0 45 0" change-color-on-hover="color: blue"></a-box>
+      <a-box id="box" position="-1 0.5 -3" rotation="0 45 0" change-color-on-hover="color: blue"></a-box>
       <a-sphere id="sphere" position="0 1.25 -5" radius="0.3" color="#EF2D5E"></a-sphere>
       <a-cylinder id="cylinder" position="1 0.75 -3" radius="0.3" height="0.3" color="#FFC65D"></a-cylinder>
-      <a-plane position="0 0 0" rotation="-90 0 0" width="50" height="50" color="#7BC8A4"></a-plane>
-      <a-sky color="#555555" radius="30" ></a-sky>
+      <a-sky id="sky" color="#FFFFFF" radius="30" ></a-sky>
 
       <a-assets>
-        <video id="myVideo" width="400" height="300" autoplay="1" crossorigin="anonymous"></video>
+        <video id="myVideo" width="640" height="480" autoplay="1" crossorigin="anonymous"></video>
       </a-assets>
       <a-video src="#myVideo" width="16" height="9" position="0 10 -20"></a-video>
-      <a-camera id="myCamera">
+      <a-camera id="myCamera" look-controls>
         <a-cursor id="myCursor"></a-cursor>
       </a-camera>
 
