@@ -8,20 +8,19 @@
   <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-analytics.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-auth.js"></script>  
   <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-database.js"></script>
+  <script src="Avaters.js"></script>
 
   <body style="margin : 0px; overflow: hidden;">
     <a-scene>
 
-      <a-box id="box" position="-1 0.5 -3" rotation="0 45 0" change-color-on-hover="color: blue"></a-box>
-      <a-sphere id="sphere" position="0 1.25 -5" radius="0.3" color="#EF2D5E"></a-sphere>
-      <a-cylinder id="cylinder" position="1 0.75 -3" radius="0.3" height="0.3" color="#FFC65D"></a-cylinder>
-      <a-sky id="sky" color="#FFFFFF" radius="30" ></a-sky>
+      <a-box id="box" position="0 2 0" rotation="0 0 0" scale="2 1 2" color="black"></a-box>
+      <a-sky id="sky" color="#888888" radius="30" ></a-sky>
 
       <a-assets>
         <video id="myVideo" width="640" height="480" autoplay="1" crossorigin="anonymous"></video>
       </a-assets>
-      <a-video src="#myVideo" width="16" height="9" position="0 10 -20"></a-video>
-      <a-camera id="myCamera" look-controls>
+      <a-video src="#myVideo" width="16" height="9" position="0 15 -20"></a-video>
+      <a-camera id="myCamera" my-avater>
         <a-cursor id="myCursor"></a-cursor>
       </a-camera>
 
